@@ -30,7 +30,6 @@ public abstract class ResponseStrategy {
 	protected Path prepareDownloadPathFor(URI target) {
 		createDownloadDir(target);
 		Path dest = getDownloadPath(target);
-		LOG.info(dest.toUri().toString());
 		return dest;
 	}
 

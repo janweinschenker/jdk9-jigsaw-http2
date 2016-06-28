@@ -8,7 +8,6 @@ import java.net.http.HttpResponse;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -34,13 +33,13 @@ public class ResponseAsync extends ResponseStrategy {
 	public List<CompletableFuture<File>> getCompletableFutures(List<URI> targets) {
 
 		List<CompletableFuture<File>> futures = targets.stream().map(target -> {
-			return HttpRequest.create(target).version(Version.HTTP_1_1).GET().responseAsync().thenCompose(response -> {
+			return HttpRequest.create(target).version(Version.HTTP_2).GET().responseAsync().thenCompose(response -> {
 				Path dest = prepareDownloadPathFor(target);
 				if (response.statusCode() == 200) {
-					LOG.log(Level.INFO, dest.toString() + ": 200");
+					// LOG.log(Level.INFO, dest.toString() + ": 200");
 					return response.bodyAsync(HttpResponse.asFile(dest));
 				} else {
-					LOG.log(Level.INFO, dest.toString() + ": else");
+					// LOG.log(Level.INFO, dest.toString() + ": else");
 					return CompletableFuture.completedFuture(dest);
 				}
 			})

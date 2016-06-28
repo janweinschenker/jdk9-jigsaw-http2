@@ -21,9 +21,9 @@ public class UriProvider {
 		List<URI> uriList = new ArrayList<URI>();
 
 		try {
-			// addUri(uriList,"https://www.tagesschau.de");
-			addUri(uriList, "https://www.google.de");
-			addUri(uriList, "https://www.amazon.de");
+			addUri(uriList, "http://www.ist-http2-aktiviert.de");
+			addUri(uriList, "http://www.google.de");
+			addUri(uriList, "http://www.http2demo.io");
 
 		} catch (URISyntaxException e) {
 			LOG.log(Level.WARNING, "URISyntaxException", e);

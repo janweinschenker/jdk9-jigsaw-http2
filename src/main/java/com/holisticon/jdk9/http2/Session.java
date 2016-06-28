@@ -5,7 +5,6 @@ import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
@@ -56,24 +55,6 @@ public class Session {
 			if (completableFuture.isDone()) {
 				try {
 					LOG.info(completableFuture.get().getAbsolutePath());
-				} catch (InterruptedException e) {
-					LOG.log(Level.SEVERE, "InterruptedException", e);
-				} catch (ExecutionException e) {
-					LOG.log(Level.SEVERE, "ExecutionException", e);
-				}
-			}
-		}
-	}
-
-	private void printMapFuturesReport(List<CompletableFuture<Map<URI, File>>> futures) {
-		for (CompletableFuture<Map<URI, File>> completableFuture : futures) {
-			if (completableFuture.isDone()) {
-				try {
-					Map<URI, File> map = completableFuture.get();
-
-					for (File path : map.values()) {
-						LOG.log(Level.INFO, path.getAbsolutePath());
-					}
 				} catch (InterruptedException e) {
 					LOG.log(Level.SEVERE, "InterruptedException", e);
 				} catch (ExecutionException e) {

@@ -43,18 +43,19 @@ public class ResponseAsyncMulti extends ResponseStrategy {
 			createDownloadDir(target);
 			Path d = getDownloadPath(target);
 			// LOG.info(d.toString());
-			HttpRequest.create(target).version(Version.HTTP_1_1).GET().multiResponseAsync(HttpResponse.multiFile(d))
-					.thenComposeAsync((Map<URI, Path> mp) -> {
+			CompletableFuture<CompletableFuture<Map<URI, File>>> completableFutures = HttpRequest.create(target)
+					.version(Version.HTTP_2).GET().multiResponseAsync(HttpResponse.multiFile(d))
+					.thenApplyAsync((Map<URI, Path> mp) -> {
 						Map<URI, File> files = new HashMap<URI, File>();
 						for (Iterator<URI> i = mp.keySet().iterator(); i.hasNext();) {
 							URI eachUri = i.next();
 							Path path = mp.get(eachUri);
-							LOG.info("eachURI: " + path.toString());
+							// LOG.info("eachURI: " + path.toString());
 							files.put(eachUri, path.toFile());
 							futures.add(CompletableFuture.completedFuture(path.toFile()));
 						}
 						return CompletableFuture.completedFuture(files);
-					}, Executors.newFixedThreadPool(5));
+					}, Executors.newCachedThreadPool());
 		}
 		return futures;
 	}
