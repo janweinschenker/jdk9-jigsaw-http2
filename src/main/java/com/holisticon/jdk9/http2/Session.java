@@ -4,12 +4,16 @@ import java.io.File;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.holisticon.jdk9.http2.strategy.ResponseAsync;
+import com.holisticon.jdk9.http2.strategy.ResponseAsyncMulti;
+import com.holisticon.jdk9.http2.strategy.ResponseStrategy;
 
 /**
  * 
@@ -21,48 +25,77 @@ import java.util.stream.Collectors;
  */
 public class Session {
 
-	public static void main(String[] args) {
-		// fetch a list of target URIs asynchronously and store them in Files.
+	private static final Logger LOG = Logger.getLogger(Session.class.getName());
 
+	public static void main(String[] args) {
+		Session session = new Session();
+		session.go();
+
+	}
+
+	public void go() {
 		List<URI> targets = UriProvider.getInstance().getUriList();
 
-		List<CompletableFuture<File>> futures = targets.stream().map(target -> {
-			return HttpRequest.create(target).GET().responseAsync().thenCompose(response -> {
-				Path dest = Paths.get("target/downloads", target.getHost(), target.getPath());
-				System.out.println(dest.toString());
-				if (response.statusCode() == 200) {
-					System.out.println("200");
-					return response.bodyAsync(HttpResponse.asFile(dest));
-				} else {
-					System.out.println("else");
-					return CompletableFuture.completedFuture(dest);
-				}
-			})
-					// convert Path -> File
-					.thenApply((Path dest) -> {
-						return dest.toFile();
-					});
-		}).collect(Collectors.toList());
-
-		// all async operations waited for here
+		List<CompletableFuture<File>> futures = getCompletableFutures(new ResponseAsync(), targets);
 
 		CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
-		// all elements of futures have completed and can be examined.
-		// Use File.exists() to check whether file was successfully downloaded
 
-		 for (CompletableFuture<File> completableFuture : futures) {
-			 if (completableFuture.isDone()){
-				 
-				 try {
-					System.out.println(completableFuture.get().getAbsolutePath());
+		printFuturesReport(futures);
+
+		// ------
+		List<CompletableFuture<File>> futuresMulti = getCompletableFutures(new ResponseAsyncMulti(), targets);
+
+		CompletableFuture.allOf(futuresMulti.toArray(new CompletableFuture[0])).join();
+
+		printFuturesReport(futuresMulti);
+
+	}
+
+	private void printFuturesReport(List<CompletableFuture<File>> futures) {
+		for (CompletableFuture<File> completableFuture : futures) {
+			if (completableFuture.isDone()) {
+				try {
+					LOG.info(completableFuture.get().getAbsolutePath());
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOG.log(Level.SEVERE, "InterruptedException", e);
 				} catch (ExecutionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOG.log(Level.SEVERE, "ExecutionException", e);
 				}
-			 }
+			}
 		}
 	}
+
+	private void printMapFuturesReport(List<CompletableFuture<Map<URI, File>>> futures) {
+		for (CompletableFuture<Map<URI, File>> completableFuture : futures) {
+			if (completableFuture.isDone()) {
+				try {
+					Map<URI, File> map = completableFuture.get();
+
+					for (File path : map.values()) {
+						LOG.log(Level.INFO, path.getAbsolutePath());
+					}
+				} catch (InterruptedException e) {
+					LOG.log(Level.SEVERE, "InterruptedException", e);
+				} catch (ExecutionException e) {
+					LOG.log(Level.SEVERE, "ExecutionException", e);
+				}
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * fetch a list of target URIs asynchronously and store them in Files.
+	 * 
+	 * @see HttpRequest
+	 * 
+	 * @param targets
+	 * @return
+	 */
+	private List<CompletableFuture<File>> getCompletableFutures(ResponseStrategy strategy, List<URI> targets) {
+
+		LOG.info(strategy.getClass().getName());
+		return strategy.getCompletableFutures(targets);
+	}
+
 }
