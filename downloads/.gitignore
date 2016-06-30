@@ -1,4 +1,6 @@
-!/ResponseAsync/
-!/ResponseAsyncMulti/
+!/ResponseAsync
+!/ResponseAsyncMulti
 /ResponseAsync/*
 /ResponseAsyncMulti/*
+!/ResponseAsync/info.md
+!/ResponseAsyncMulti/info.md

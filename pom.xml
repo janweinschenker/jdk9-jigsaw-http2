@@ -67,6 +67,11 @@
 							<includes>
 								<include>**/*.*</include>
 							</includes>
+							<excludes>
+								<eclude>
+									info.md
+								</eclude>
+							</excludes>
 							<followSymlinks>false</followSymlinks>
 						</fileset>
 						<fileset>
@@ -74,6 +79,11 @@
 							<includes>
 								<include>**/*.*</include>
 							</includes>
+							<excludes>
+								<eclude>
+									info.md
+								</eclude>
+							</excludes>
 							<followSymlinks>false</followSymlinks>
 						</fileset>
 					</filesets>
