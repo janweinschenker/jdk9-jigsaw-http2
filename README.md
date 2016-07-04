@@ -18,5 +18,5 @@ Code-examples showcasing the http2-implementation of JDK 9.
 1. Clone this project to your local drive.
 1. [Download an install JDK 9 with Project Jigsaw](https://jdk9.java.net/jigsaw/)
 1. Add the home directory of the Jigsaw-JDK to your toolchains.xml. See the example file at [toolchain/toolchains.xml](./toolchain/toolchains.xml)
-1. In the project folder call `$>mvn clean:clean package`
+1. In the project folder call `$> mvn clean:clean package`
   1. Maven should use the JDK 9 `javac` compiler to compile the sources.
