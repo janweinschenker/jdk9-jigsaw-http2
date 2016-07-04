@@ -8,55 +8,103 @@
 	<version>1.0</version>
 
 	<properties>
-		<java.version>1.9</java.version>
+		<java.version>9</java.version>
+		<java.9.executable>/Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/bin/java</java.9.executable>
 		<additionalRuntimeArgLine>-addmods java.xml.bind</additionalRuntimeArgLine>
 	</properties>
-
+	<profiles>
+		<profile>
+			<id>session</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.5.0</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<executable>${java.9.executable}</executable>
+							<arguments>
+								<argument>-classpath</argument>
+								<classpath />
+								<argument>com.holisticon.jdk9.http2.Session</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>cancelclient</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.5.0</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<executable>${java.9.executable}</executable>
+							<arguments>
+								<argument>-classpath</argument>
+								<classpath />
+								<argument>com.holisticon.jdk9.http2.CancelClient</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>properties-maven-plugin</artifactId>
-				<version>1.0.0</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				 <artifactId>maven-toolchains-plugin</artifactId>
 				<executions>
 					<execution>
-						<phase>initialize</phase>
 						<goals>
-							<goal>read-project-properties</goal>
+							<goal>toolchain</goal>
 						</goals>
-						<configuration>
-							<files>
-								<file>dev.properties</file>
-							</files>
-						</configuration>
 					</execution>
 				</executions>
+				<configuration>
+					<toolchains>
+						<jdk>
+							<version>1.9</version>
+						</jdk>
+					</toolchains>
+				</configuration>
 			</plugin>
-
+			<!-- -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5.1</version><!--$NO-MVN-MAN-VER$ -->
+				<version>3.5.1</version>
 				<configuration>
 					<verbose>true</verbose>
 					<fork>true</fork>
-					<executable>${jdk9.home}/bin/javac
-					</executable>
-					<compilerVersion>1.9</compilerVersion>
-					<source>1.9</source>
+					<source>9</source>
 					<target>1.9</target>
-					<compilerArgs>
-						<arg>-Werror</arg>
-						<!-- <arg>-verbose</arg> <arg>-modulepath target/dependency</arg> <arg>-modulesourcepath 
-							${project.build.sourceDirectory}</arg> <arg>-addmods ALL-MODULE-PATH</arg> -->
-					</compilerArgs>
-					<testCompilerArgs>
-						<arg>-Werror</arg>
-						<!-- <arg>-verbose</arg> <arg>-modulepath target/dependency</arg> <arg>-modulesourcepath 
-							${project.build.sourceDirectory}</arg> <arg>-addmods ALL-MODULE-PATH</arg> -->
-					</testCompilerArgs>
 				</configuration>
 			</plugin>
+			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>exec-maven-plugin</artifactId> 
+				<version>1.5.0</version> <executions> <execution> <goals> <goal>exec</goal> 
+				</goals> </execution> </executions> <configuration> <executable>${java.9.executable}</executable> 
+				<arguments> <argument>-classpath</argument> <classpath /> <argument>com.holisticon.jdk9.http2.Session</argument> 
+				</arguments> </configuration> </plugin> -->
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>3.0.0</version>
@@ -91,7 +139,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
 	<dependencies>
 	</dependencies>
 	<pluginRepositories>
