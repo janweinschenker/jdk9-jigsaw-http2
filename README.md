@@ -14,7 +14,9 @@ retrieve contents from https-addresses. As soon as I find out how to run these e
 2 [Running the examples](#Running)<br/>
 2.1 [Fetching a list of target URIs asynchronously](#ResponseAsync)<br/>
 2.2 [Fetching a list of target URIs asynchronously with multi response](#ResponseAsyncMulti)<br/>
-2.3 [Cancel an HTTP request](#CancelClient)
+2.3 [Cancel an HTTP request](#CancelClient)<br/>
+2.4 [Clean the target and downloads folder](#Clean)
+
 
 
 ## <a name="howtorun"></a>1 How to run this Code
@@ -44,7 +46,7 @@ This example is implemented in [ResponseAsync.java](./src/main/java/com/holistic
 1. If not done already, compile the sources 
   1. `$> mvn clean:clean package`
 1. Execute the example code with maven by using the correct profile.
-  1. `mvn exec:exec -PResponseAsyncExample`
+  1. `$> mvn exec:exec -PResponseAsyncExample`
 1. The example will contact the configured http servers ([see UriProvider.java](./src/main/java/com/holisticon/jdk9/http2/util/UriProvider.java)) and will try to download one html-file from every server.
   1. This might take several minutes.
 1. Downloaded files can be found in [./downloads/ResponseAsync](./downloads/ResponseAsync).
@@ -58,7 +60,7 @@ The client will download an HTML file from the server. If the server pushes any 
 1. If not done already, compile the sources 
   1. `$> mvn clean:clean package`
 1. Execute the example code with maven by using the correct profile.
-  1. `mvn exec:exec -PResponseAsyncMultiExample`
+  1. `$> mvn exec:exec -PResponseAsyncMultiExample`
 1. The example will contact the configured http servers ([see UriProvider.java](./src/main/java/com/holisticon/jdk9/http2/util/UriProvider.java)) and will try to download one html-file from every server.
   1. This might take several minutes.
 1. Downloaded files can be found in [./downloads/ResponseAsyncMulti](./downloads/ResponseAsyncMulti).
@@ -72,8 +74,10 @@ The client will initiate an HTTP GET request and will cancel it after 10 millise
 1. If not done already, compile the sources 
   1. `$> mvn clean:clean package`
 1. Execute the example code with maven by using the correct profile.
-  1. `mvn exec:exec -PCancelClientExample`
+  1. `$> mvn exec:exec -PCancelClientExample`
 1. The request will be cancelled after 10 miiliseconds and a ``CancellationException`` will be thrown.
 
 
+### <a name="Clean"></a> 2.4 Clean the target and downloads folder
 
+Call `$> mvn clean:clean`.
