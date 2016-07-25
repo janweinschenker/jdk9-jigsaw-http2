@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * @author janweinschenker
  *
  */
-public class ResponseAsync extends ResponseStrategy {
+public class ResponseAsync extends AbstractResponseStrategy {
 
 	private static final Logger LOG = Logger.getLogger(ResponseAsync.class.getName());
 

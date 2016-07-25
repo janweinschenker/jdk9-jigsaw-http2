@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 import com.holisticon.jdk9.http2.strategy.ResponseAsync;
 import com.holisticon.jdk9.http2.strategy.ResponseAsyncMulti;
-import com.holisticon.jdk9.http2.strategy.ResponseStrategy;
+import com.holisticon.jdk9.http2.strategy.AbstractResponseStrategy;
 
 /**
  * 
@@ -73,7 +73,7 @@ public class Session {
 	 * @param targets
 	 * @return
 	 */
-	private List<CompletableFuture<File>> getCompletableFutures(ResponseStrategy strategy, List<URI> targets) {
+	private List<CompletableFuture<File>> getCompletableFutures(AbstractResponseStrategy strategy, List<URI> targets) {
 
 		LOG.info(strategy.getClass().getName());
 		return strategy.getCompletableFutures(targets);

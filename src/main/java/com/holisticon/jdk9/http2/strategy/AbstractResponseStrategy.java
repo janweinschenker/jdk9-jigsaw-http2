@@ -15,9 +15,9 @@ import java.util.logging.Logger;
  * @author janweinschenker
  *
  */
-public abstract class ResponseStrategy {
+public abstract class AbstractResponseStrategy {
 
-	private static final Logger LOG = Logger.getLogger(ResponseStrategy.class.getName());
+	private static final Logger LOG = Logger.getLogger(AbstractResponseStrategy.class.getName());
 
 	public abstract List<CompletableFuture<File>> getCompletableFutures(List<URI> targets);
 

@@ -19,10 +19,13 @@ import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
 /**
+ * I create an instance of an HTTP2-client. This client will asynchronously
+ * fetch content from a list of URIs.
+ * 
  * @author janweinschenker
  *
  */
-public class ResponseAsyncMulti extends ResponseStrategy {
+public class ResponseAsyncMulti extends AbstractResponseStrategy {
 
 	private static final Logger LOG = Logger.getLogger(ResponseAsyncMulti.class.getName());
 
@@ -39,22 +42,25 @@ public class ResponseAsyncMulti extends ResponseStrategy {
 	public List<CompletableFuture<File>> getCompletableFutures(List<URI> targets) {
 		List<CompletableFuture<File>> futures = new ArrayList<CompletableFuture<File>>();
 		for (URI target : targets) {
-			// LOG.info(target.toString());
+
 			createDownloadDir(target);
-			Path d = getDownloadPath(target);
-			// LOG.info(d.toString());
-			CompletableFuture<CompletableFuture<Map<URI, File>>> completableFutures = HttpRequest.create(target)
-					.version(Version.HTTP_2).GET().multiResponseAsync(HttpResponse.multiFile(d))
+
+			Path downloadDirectory = getDownloadPath(target);
+
+			HttpRequest.create(target).version(Version.HTTP_2).GET()
+					.multiResponseAsync(HttpResponse.multiFile(downloadDirectory))
 					.thenApplyAsync((Map<URI, Path> mp) -> {
-						Map<URI, File> files = new HashMap<URI, File>();
+
+						Map<URI, File> downloadedFiles = new HashMap<URI, File>();
+
 						for (Iterator<URI> i = mp.keySet().iterator(); i.hasNext();) {
 							URI eachUri = i.next();
-							Path path = mp.get(eachUri);
-							// LOG.info("eachURI: " + path.toString());
-							files.put(eachUri, path.toFile());
-							futures.add(CompletableFuture.completedFuture(path.toFile()));
+							Path hostSpecificDirectory = mp.get(eachUri);
+
+							downloadedFiles.put(eachUri, hostSpecificDirectory.toFile());
+							futures.add(CompletableFuture.completedFuture(hostSpecificDirectory.toFile()));
 						}
-						return CompletableFuture.completedFuture(files);
+						return CompletableFuture.completedFuture(downloadedFiles);
 					}, Executors.newCachedThreadPool());
 		}
 		return futures;
