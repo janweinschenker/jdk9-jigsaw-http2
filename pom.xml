@@ -14,7 +14,7 @@
 	</properties>
 	<profiles>
 		<profile>
-			<id>session</id>
+			<id>ResponseAsyncExample</id>
 			<build>
 				<plugins>
 					<plugin>
@@ -33,7 +33,7 @@
 							<arguments>
 								<argument>-classpath</argument>
 								<classpath />
-								<argument>com.holisticon.jdk9.http2.Session</argument>
+								<argument>com.holisticon.jdk9.http2.ResponseAsyncExample</argument>
 							</arguments>
 						</configuration>
 					</plugin>
@@ -41,7 +41,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>cancelclient</id>
+			<id>CancelClientExample</id>
 			<build>
 				<plugins>
 					<plugin>
@@ -60,7 +60,7 @@
 							<arguments>
 								<argument>-classpath</argument>
 								<classpath />
-								<argument>com.holisticon.jdk9.http2.CancelClient</argument>
+								<argument>com.holisticon.jdk9.http2.CancelClientExample</argument>
 							</arguments>
 						</configuration>
 					</plugin>
