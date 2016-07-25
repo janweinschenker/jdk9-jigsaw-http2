@@ -8,6 +8,8 @@ import java.net.http.HttpResponse;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -16,6 +18,8 @@ import java.util.stream.Collectors;
  *
  */
 public class ResponseAsync extends AbstractResponseStrategy {
+
+	private static final Logger LOG = Logger.getLogger(ResponseAsync.class.getName());
 
 	/**
 	 * 
@@ -39,11 +43,17 @@ public class ResponseAsync extends AbstractResponseStrategy {
 					// LOG.log(Level.INFO, dest.toString() + ": else");
 					return CompletableFuture.completedFuture(dest);
 				}
-			})
-					// convert Path -> File
-					.thenApply((Path dest) -> {
-						return dest.toFile();
-					});
+			}).whenCompleteAsync((it, err) -> {
+				if (it != null) {
+					LOG.log(Level.INFO, "saved to disk: " + it.toString());
+				} else {
+					LOG.log(Level.SEVERE, err.getClass().getSimpleName());
+				}
+
+			}).thenApply((Path dest) -> {
+				// convert Path -> File
+				return dest.toFile();
+			});
 		}).collect(Collectors.toList());
 		return futures;
 	}

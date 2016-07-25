@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * I create an instance of an HTTP2-client. This client will asynchronously
@@ -25,6 +27,8 @@ import java.util.concurrent.Executors;
  *
  */
 public class ResponseAsyncMulti extends AbstractResponseStrategy {
+
+	private static final Logger LOG = Logger.getLogger(ResponseAsyncMulti.class.getName());
 
 	/**
 	 * 
@@ -45,8 +49,9 @@ public class ResponseAsyncMulti extends AbstractResponseStrategy {
 			Path downloadDirectory = getDownloadPath(target);
 
 			HttpRequest.create(target).version(Version.HTTP_2).GET()
-					.multiResponseAsync(HttpResponse.multiFile(downloadDirectory))
-					.thenApplyAsync((Map<URI, Path> mp) -> {
+					.multiResponseAsync(HttpResponse.multiFile(downloadDirectory)).whenCompleteAsync((it, err) -> {
+						LOG.log(Level.INFO, it.keySet().toString());
+					}).thenApplyAsync((Map<URI, Path> mp) -> {
 
 						Map<URI, File> downloadedFiles = new HashMap<URI, File>();
 
@@ -55,7 +60,15 @@ public class ResponseAsyncMulti extends AbstractResponseStrategy {
 							Path hostSpecificDirectory = mp.get(eachUri);
 
 							downloadedFiles.put(eachUri, hostSpecificDirectory.toFile());
-							futures.add(CompletableFuture.completedFuture(hostSpecificDirectory.toFile()));
+
+							futures.add(CompletableFuture.completedFuture(hostSpecificDirectory.toFile())
+									.whenCompleteAsync((it, err) -> {
+										if (it != null) {
+											LOG.log(Level.INFO, "saved to disk: " + it.getAbsolutePath());
+										} else {
+											LOG.log(Level.SEVERE, err.getClass().getSimpleName());
+										}
+									}));
 						}
 						return CompletableFuture.completedFuture(downloadedFiles);
 					}, Executors.newCachedThreadPool());
