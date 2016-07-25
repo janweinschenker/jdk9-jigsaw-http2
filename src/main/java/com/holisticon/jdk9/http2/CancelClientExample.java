@@ -28,15 +28,17 @@ public class CancelClientExample {
 	}
 
 	public HttpResponse send() throws InterruptedException, ExecutionException, URISyntaxException {
+
 		HttpRequest request = HttpRequest.create(new URI("http://www.holisticon.de")).body(HttpRequest.noBody())
 				.version(Version.HTTP_2).GET();
 		CompletableFuture<HttpResponse> future = request.responseAsync();
+
 		Thread.sleep(10);
 		if (!future.isDone()) {
 			future.cancel(true);
 			LOG.info("Sorry, timeout!");
 		}
-		LOG.info("Done!");
+		LOG.info("Request finished without timeout.");
 		HttpResponse response = future.get();
 		LOG.info(response.uri().toASCIIString());
 		return response;

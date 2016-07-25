@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
-import java.util.logging.Logger;
 
 /**
  * I create an instance of an HTTP2-client. This client will asynchronously
@@ -26,8 +25,6 @@ import java.util.logging.Logger;
  *
  */
 public class ResponseAsyncMulti extends AbstractResponseStrategy {
-
-	private static final Logger LOG = Logger.getLogger(ResponseAsyncMulti.class.getName());
 
 	/**
 	 * 

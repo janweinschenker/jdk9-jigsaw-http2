@@ -26,5 +26,14 @@ The examples can be executed with the exec-maven-plugin.
 
 #### Fetching a list of target URIs asynchronously
 
-This example is implemented in [ResponseAsyncMulti.java](./src/main/java/com/holisticon/jdk9/http2/strategy/ResponseAsyncMulti.java).
+This example is implemented in [ResponseAsync.java](./src/main/java/com/holisticon/jdk9/http2/strategy/ResponseAsync.java).
+
+1. If not done already, compile the sources 
+  1. `$> mvn clean:clean package`
+1. Execute the example code with maven by using the correct profile.
+  1. `mvn exec:exec -PResponseAsyncExample`
+1. The example will contact the configured http servers ([see UriProvider.java](./src/main/java/com/holisticon/jdk9/http2/util/UriProvider.java)) and will try to download one html-file from every server.
+  1. This might take several minutes.
+1. Downloaded files can be found in [./downloads/ResponseAsync](./downloads/ResponseAsync).
+
 

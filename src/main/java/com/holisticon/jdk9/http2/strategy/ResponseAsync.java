@@ -8,7 +8,6 @@ import java.net.http.HttpResponse;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -18,11 +17,9 @@ import java.util.stream.Collectors;
  */
 public class ResponseAsync extends AbstractResponseStrategy {
 
-	private static final Logger LOG = Logger.getLogger(ResponseAsync.class.getName());
-
 	/**
 	 * 
-	 * fetch a list of target URIs asynchronously and store them in Files.
+	 * Fetch a list of target URIs asynchronously and store them in Files.
 	 * 
 	 * @see HttpRequest
 	 * 
