@@ -13,6 +13,8 @@ retrieve contents from https-addresses. As soon as I find out how to run these e
 
 2 [Running the examples](#Running)<br/>
 2.1 [Fetching a list of target URIs asynchronously](#ResponseAsync)<br/>
+2.2 [Fetching a list of target URIs asynchronously with multi response](#ResponseAsyncMulti)<br/>
+2.3 [Cancel an HTTP request](#CancelClient)
 
 
 ## <a name="howtorun"></a>1 How to run this Code
@@ -23,7 +25,7 @@ retrieve contents from https-addresses. As soon as I find out how to run these e
 1. JDK 9 with Project Jigsaw
 
 
-### <a name="Setup"></a> 1.2 Setup instructions
+### <a name="Setup"></a> 1.2 Setup and compile and compile instructions
 1. Clone this project to your local drive.
 1. [Download and install JDK 9 with Project Jigsaw](https://jdk9.java.net/jigsaw/)
 1. Add the home directory of the Jigsaw-JDK to your toolchains.xml. See the example file at [toolchain/toolchains.xml](./toolchain/toolchains.xml)
@@ -39,8 +41,6 @@ The examples can be executed with the exec-maven-plugin.
 
 This example is implemented in [ResponseAsync.java](./src/main/java/com/holisticon/jdk9/http2/strategy/ResponseAsync.java).
 
-
-
 1. If not done already, compile the sources 
   1. `$> mvn clean:clean package`
 1. Execute the example code with maven by using the correct profile.
@@ -55,7 +55,6 @@ This example is implemented in [ResponseAsyncMulti.java](./src/main/java/com/hol
 
 The client will download an HTML file from the server. If the server pushes any other resources
 
-
 1. If not done already, compile the sources 
   1. `$> mvn clean:clean package`
 1. Execute the example code with maven by using the correct profile.
@@ -63,3 +62,17 @@ The client will download an HTML file from the server. If the server pushes any 
 1. The example will contact the configured http servers ([see UriProvider.java](./src/main/java/com/holisticon/jdk9/http2/util/UriProvider.java)) and will try to download one html-file from every server.
   1. This might take several minutes.
 1. Downloaded files can be found in [./downloads/ResponseAsyncMulti](./downloads/ResponseAsyncMulti).
+
+### <a name="CancelClient"></a> 2.3 Cancel an HTTP request
+
+This example is implemented in [CancelClientExample.java](./src/main/java/com/holisticon/jdk9/http2/CancelClientExample.java).
+
+The client will initiate an HTTP GET request and will cancel it after 10 milliseconds. 
+
+1. If not done already, compile the sources 
+  1. `$> mvn clean:clean package`
+1. Execute the example code with maven by using the correct profile.
+  1. `mvn exec:exec -PCancelClientExample`
+
+
+

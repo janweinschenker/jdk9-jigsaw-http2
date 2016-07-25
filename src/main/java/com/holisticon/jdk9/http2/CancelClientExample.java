@@ -22,7 +22,7 @@ public class CancelClientExample {
 		} catch (InterruptedException | ExecutionException | URISyntaxException e) {
 			LOG.log(Level.SEVERE, e.getClass().getSimpleName());
 		} catch (CancellationException e) {
-			LOG.log(Level.SEVERE, "The request has been cancelled.");
+			LOG.log(Level.SEVERE, "The request has been cancelled: " + e.getClass().getSimpleName());
 			System.exit(0);
 		}
 	}
