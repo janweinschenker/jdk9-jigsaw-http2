@@ -73,6 +73,7 @@ The client will initiate an HTTP GET request and will cancel it after 10 millise
   1. `$> mvn clean:clean package`
 1. Execute the example code with maven by using the correct profile.
   1. `mvn exec:exec -PCancelClientExample`
+1. The request will be cancelled after 10 miiliseconds and a ``CancellationException`` will be thrown.
 
 
 

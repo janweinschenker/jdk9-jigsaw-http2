@@ -11,6 +11,8 @@ public class UriProvider {
 
 	private static final Logger LOG = Logger.getLogger(UriProvider.class.getName());
 
+	private static final String PROTOCOL = "http";
+
 	public static UriProvider getInstance() {
 		UriProvider instance = new UriProvider();
 		return instance;
@@ -21,10 +23,10 @@ public class UriProvider {
 		List<URI> uriList = new ArrayList<URI>();
 
 		try {
-			addUri(uriList, "http://www.ist-http2-aktiviert.de");
-			addUri(uriList, "http://www.google.de");
-			addUri(uriList, "http://www.http2demo.io");
-			addUri(uriList, "http://nghttp2.org");
+			addUri(uriList, PROTOCOL + "://www.ist-http2-aktiviert.de");
+			addUri(uriList, PROTOCOL + "://www.google.de");
+			addUri(uriList, PROTOCOL + "://www.http2demo.io");
+			addUri(uriList, PROTOCOL + "://nghttp2.org");
 
 		} catch (URISyntaxException e) {
 			LOG.log(Level.WARNING, "URISyntaxException", e);
