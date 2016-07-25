@@ -3,12 +3,16 @@
 
 Code-examples showcasing the http2-implementation of JDK 9.
 
+**Information concerning support of HTTPS**: *As of the jigsaw jdk9, build 127, I could not figure out how to
+retrieve contents from https-addresses. As soon as I find out how to run these examples with https, the code will be changed accordingly.*
+
 ## Contents
-1 [How to run this Code](#howtorun)
+1 [How to run this Code](#howtorun) <br/>
+1.1 [Prerequisites](#Prerequisites) <br/>
+1.2 [Setup instructions](#Setup) <br/>
 
-1\.1 [Prerequisites](#Prerequisites)
-
-1\.2 [Setup instructions](#Setup)
+2 [Running the examples](#Running)<br/>
+2.1 [Fetching a list of target URIs asynchronously](#ResponseAsync)<br/>
 
 
 ## <a name="howtorun"></a>1 How to run this Code
@@ -27,13 +31,15 @@ Code-examples showcasing the http2-implementation of JDK 9.
   1. Maven should use the JDK 9 `javac` compiler to compile the sources.
 1. The setup is complete, when `$> mvn clean:clean package` has build successfully.
 
-## Running the examples
+## <a name="Running"></a> 2 Running the examples
 
 The examples can be executed with the exec-maven-plugin.
 
-### Fetching a list of target URIs asynchronously
+### <a name="ResponseAsync"></a> 2.1 Fetching a list of target URIs asynchronously
 
 This example is implemented in [ResponseAsync.java](./src/main/java/com/holisticon/jdk9/http2/strategy/ResponseAsync.java).
+
+
 
 1. If not done already, compile the sources 
   1. `$> mvn clean:clean package`
@@ -43,4 +49,17 @@ This example is implemented in [ResponseAsync.java](./src/main/java/com/holistic
   1. This might take several minutes.
 1. Downloaded files can be found in [./downloads/ResponseAsync](./downloads/ResponseAsync).
 
+### <a name="ResponseAsyncMulti"></a> 2.2 Fetching a list of target URIs asynchronously with multi response
 
+This example is implemented in [ResponseAsyncMulti.java](./src/main/java/com/holisticon/jdk9/http2/strategy/ResponseAsyncMulti.java).
+
+The client will download an HTML file from the server. If the server pushes any other resources
+
+
+1. If not done already, compile the sources 
+  1. `$> mvn clean:clean package`
+1. Execute the example code with maven by using the correct profile.
+  1. `mvn exec:exec -PResponseAsyncMultiExample`
+1. The example will contact the configured http servers ([see UriProvider.java](./src/main/java/com/holisticon/jdk9/http2/util/UriProvider.java)) and will try to download one html-file from every server.
+  1. This might take several minutes.
+1. Downloaded files can be found in [./downloads/ResponseAsyncMulti](./downloads/ResponseAsyncMulti).

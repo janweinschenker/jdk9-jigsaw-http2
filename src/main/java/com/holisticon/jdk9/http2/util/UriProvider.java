@@ -24,6 +24,7 @@ public class UriProvider {
 			addUri(uriList, "http://www.ist-http2-aktiviert.de");
 			addUri(uriList, "http://www.google.de");
 			addUri(uriList, "http://www.http2demo.io");
+			addUri(uriList, "http://nghttp2.org");
 
 		} catch (URISyntaxException e) {
 			LOG.log(Level.WARNING, "URISyntaxException", e);
