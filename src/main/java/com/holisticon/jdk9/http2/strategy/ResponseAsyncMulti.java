@@ -5,6 +5,7 @@ package com.holisticon.jdk9.http2.strategy;
 
 import java.io.File;
 import java.net.URI;
+import java.net.http.HttpClient;
 import java.net.http.HttpClient.Version;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -19,6 +20,10 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.net.ssl.SSLContext;
+
+import com.holisticon.jdk9.http2.util.SSLContextCreator;
+
 /**
  * I create an instance of an HTTP2-client. This client will asynchronously
  * fetch content from a list of URIs.
@@ -28,7 +33,8 @@ import java.util.logging.Logger;
  */
 public class ResponseAsyncMulti extends AbstractResponseStrategy {
 
-	private static final Logger LOG = Logger.getLogger(ResponseAsyncMulti.class.getName());
+	private static final Logger LOG = Logger
+			.getLogger(ResponseAsyncMulti.class.getName());
 
 	/**
 	 * 
@@ -40,37 +46,51 @@ public class ResponseAsyncMulti extends AbstractResponseStrategy {
 	 * @return
 	 */
 	@Override
-	public List<CompletableFuture<File>> getCompletableFutures(List<URI> targets) {
+	public List<CompletableFuture<File>> getCompletableFutures(
+			List<URI> targets) {
 		List<CompletableFuture<File>> futures = new ArrayList<CompletableFuture<File>>();
+		SSLContext context = SSLContextCreator.getContext();
+		HttpClient client = HttpClient.create().sslContext(context).build();
+
 		for (URI target : targets) {
 
 			createDownloadDir(target);
 
 			Path downloadDirectory = getDownloadPath(target);
 
-			HttpRequest.create(target).version(Version.HTTP_2).GET()
-					.multiResponseAsync(HttpResponse.multiFile(downloadDirectory)).whenCompleteAsync((it, err) -> {
+			client.request(target).version(Version.HTTP_2).GET()
+					.multiResponseAsync(
+							HttpResponse.multiFile(downloadDirectory))
+					.whenCompleteAsync((it, err) -> {
 						LOG.log(Level.INFO, it.keySet().toString());
 					}).thenApplyAsync((Map<URI, Path> mp) -> {
 
 						Map<URI, File> downloadedFiles = new HashMap<URI, File>();
 
-						for (Iterator<URI> i = mp.keySet().iterator(); i.hasNext();) {
+						for (Iterator<URI> i = mp.keySet().iterator(); i
+								.hasNext();) {
 							URI eachUri = i.next();
 							Path hostSpecificDirectory = mp.get(eachUri);
 
-							downloadedFiles.put(eachUri, hostSpecificDirectory.toFile());
+							downloadedFiles.put(eachUri,
+									hostSpecificDirectory.toFile());
 
-							futures.add(CompletableFuture.completedFuture(hostSpecificDirectory.toFile())
+							futures.add(CompletableFuture
+									.completedFuture(
+											hostSpecificDirectory.toFile())
 									.whenCompleteAsync((it, err) -> {
 										if (it != null) {
-											LOG.log(Level.INFO, "saved to disk: " + it.getAbsolutePath());
+											LOG.log(Level.INFO,
+													"saved to disk: " + it
+															.getAbsolutePath());
 										} else {
-											LOG.log(Level.SEVERE, err.getClass().getSimpleName());
+											LOG.log(Level.SEVERE, err.getClass()
+													.getSimpleName());
 										}
 									}));
 						}
-						return CompletableFuture.completedFuture(downloadedFiles);
+						return CompletableFuture
+								.completedFuture(downloadedFiles);
 					}, Executors.newCachedThreadPool());
 		}
 		return futures;

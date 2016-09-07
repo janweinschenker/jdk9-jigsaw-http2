@@ -9,7 +9,8 @@ import java.util.logging.Logger;
 
 public class UriProvider {
 
-	private static final Logger LOG = Logger.getLogger(UriProvider.class.getName());
+	private static final Logger LOG = Logger
+			.getLogger(UriProvider.class.getName());
 
 	private static final String PROTOCOL = "http";
 
@@ -34,7 +35,8 @@ public class UriProvider {
 		return uriList;
 	}
 
-	private void addUri(List<URI> uriList, String uriString) throws URISyntaxException {
+	private void addUri(List<URI> uriList, String uriString)
+			throws URISyntaxException {
 		URI uri = new URI(uriString);
 		uriList.add(uri);
 	}
