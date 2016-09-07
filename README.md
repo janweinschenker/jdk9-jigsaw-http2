@@ -3,8 +3,10 @@
 
 Code-examples showcasing the http2-implementation of JDK 9.
 
-**Information concerning support of HTTPS**: *As of the jigsaw jdk9, build 127, I could not figure out how to
+**Information concerning support of HTTPS**: *As of the jigsaw jdk9, build 133, I could not figure out how to
 retrieve contents from https-addresses. As soon as I find out how to run these examples with https, the code will be changed accordingly.*
+
+*As of now, this seems to be a bug in the JDK, see [the OpenJDK bugtracker](https://bugs.openjdk.java.net/browse/JDK-8157482).*
 
 ## Contents
 1 [How to run this Code](#howtorun) <br/>
