@@ -53,7 +53,7 @@ public class SSLContextCreator {
 			LOG.log(Level.INFO, "   Provider: " + kmf.getProvider());
 
 			// KeyStore types: JKS
-			String ksName = "http2_demo";
+			String ksName = "http2_demo.jks";
 			char ksPass[] = "pass4711".toCharArray();
 			char ctPass[] = "pass4711".toCharArray();
 			KeyStore ks = KeyStore.getInstance("JKS");
