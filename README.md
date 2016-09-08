@@ -19,6 +19,8 @@ retrieve contents from https-addresses. As soon as I find out how to run these e
 2.3 [Cancel an HTTP request](#CancelClient)<br/>
 2.4 [Clean the target and downloads folder](#Clean)
 
+3 [Contribute](#Contribute)<br/>
+
 
 
 ## <a name="howtorun"></a>1 How to run this Code
@@ -85,3 +87,7 @@ The client will initiate an HTTP GET request and will cancel it after 10 millise
 ### <a name="Clean"></a> 2.4 Clean the target and downloads folder
 
 Call `$> mvn clean:clean`.
+
+## <a name="Contribute"></a> 3
+
+Please feel free to propose bugfixes and changes to this showcase in a pull request.
