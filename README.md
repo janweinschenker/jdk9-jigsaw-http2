@@ -88,6 +88,6 @@ The client will initiate an HTTP GET request and will cancel it after 10 millise
 
 Call `$> mvn clean:clean`.
 
-## <a name="Contribute"></a> 3
+## <a name="Contribute"></a> 3 Contribute
 
 Please feel free to propose bugfixes and changes to this showcase in a pull request.
