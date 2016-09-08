@@ -9,18 +9,28 @@ import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 
+/**
+ * Create an {@link SSLContext} and keep it as a singleton object.
+ * 
+ * @author janweinschenker
+ *
+ */
 public class SSLContextCreator {
 
-	private static final Logger LOG = Logger
-			.getLogger(SSLContextCreator.class.getName());
+	private static final Logger LOG = Logger.getLogger(SSLContextCreator.class.getName());
 
 	private static SSLContext theContext = null;
 
 	public static void main(String[] args) {
-		getContext();
+		getContextInstance();
 	}
 
-	public static SSLContext getContext() {
+	/**
+	 * Return the instance of the {@link SSLContext}
+	 * 
+	 * @return
+	 */
+	public static SSLContext getContextInstance() {
 		if (theContext == null) {
 			theContext = createContext();
 		}

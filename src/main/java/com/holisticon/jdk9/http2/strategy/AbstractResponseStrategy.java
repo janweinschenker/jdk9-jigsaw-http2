@@ -9,16 +9,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.logging.Logger;
 
 /**
+ * Super class for all strategies of this project. Contains some convenience
+ * methods.
+ * 
  * @author janweinschenker
  *
  */
 public abstract class AbstractResponseStrategy {
 
-	private static final Logger LOG = Logger.getLogger(AbstractResponseStrategy.class.getName());
-
+	/**
+	 * Get a list of {@link CompletableFuture} objects. How this is done must be
+	 * implemented in the subclass.
+	 * 
+	 * @param targets
+	 * @return
+	 */
 	public abstract List<CompletableFuture<File>> getCompletableFutures(List<URI> targets);
 
 	/**

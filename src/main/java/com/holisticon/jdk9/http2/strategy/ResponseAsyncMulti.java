@@ -9,6 +9,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpClient.Version;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.MultiProcessor;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +26,7 @@ import javax.net.ssl.SSLContext;
 import com.holisticon.jdk9.http2.util.SSLContextCreator;
 
 /**
- * I create an instance of an HTTP2-client. This client will asynchronously
+ * I create an instance of an http2 client. This client will asynchronously
  * fetch content from a list of URIs.
  * 
  * @author janweinschenker
@@ -38,6 +39,7 @@ public class ResponseAsyncMulti extends AbstractResponseStrategy {
 	/**
 	 * 
 	 * Fetch a list of target URIs asynchronously and store them in Files.
+	 * Process files pushed by the server.
 	 * 
 	 * @see HttpResponse#multiFile(Path)
 	 * @see HttpRequest#multiResponseAsync(java.net.http.HttpResponse.MultiProcessor)
@@ -47,7 +49,9 @@ public class ResponseAsyncMulti extends AbstractResponseStrategy {
 	@Override
 	public List<CompletableFuture<File>> getCompletableFutures(List<URI> targets) {
 		List<CompletableFuture<File>> futures = new ArrayList<CompletableFuture<File>>();
-		SSLContext context = SSLContextCreator.getContext();
+
+		// get the ssl context and use it to create an http client.
+		SSLContext context = SSLContextCreator.getContextInstance();
 		HttpClient client = HttpClient.create().sslContext(context).build();
 
 		for (URI target : targets) {
@@ -55,8 +59,9 @@ public class ResponseAsyncMulti extends AbstractResponseStrategy {
 			createDownloadDir(target);
 
 			Path downloadDirectory = getDownloadPath(target);
+			MultiProcessor<Map<URI, Path>> multiFileProcessor = HttpResponse.multiFile(downloadDirectory);
 
-			client.request(target).version(Version.HTTP_2).GET().multiResponseAsync(HttpResponse.multiFile(downloadDirectory)).whenCompleteAsync((it, err) -> {
+			client.request(target).version(Version.HTTP_2).GET().multiResponseAsync(multiFileProcessor).whenCompleteAsync((it, err) -> {
 				LOG.log(Level.INFO, it.keySet().toString());
 			}).thenApplyAsync((Map<URI, Path> mp) -> {
 

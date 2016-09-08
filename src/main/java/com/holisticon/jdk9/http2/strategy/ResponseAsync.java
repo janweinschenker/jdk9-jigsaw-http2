@@ -19,6 +19,8 @@ import javax.net.ssl.SSLContext;
 import com.holisticon.jdk9.http2.util.SSLContextCreator;
 
 /**
+ * This class will use an http2 request to fetch an html-file from a URI. This
+ * request will not receive files pushed by the server.
  * 
  * @author janweinschenker
  *
@@ -39,7 +41,9 @@ public class ResponseAsync extends AbstractResponseStrategy {
 	 */
 	@Override
 	public List<CompletableFuture<File>> getCompletableFutures(List<URI> targets) {
-		SSLContext context = SSLContextCreator.getContext();
+
+		// get the ssl context and use it to create an http client.
+		SSLContext context = SSLContextCreator.getContextInstance();
 		HttpClient client = HttpClient.create().sslContext(context).build();
 
 		List<CompletableFuture<File>> futures = targets.stream().map(target -> {
