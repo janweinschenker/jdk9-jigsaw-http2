@@ -27,6 +27,8 @@ retrieve contents from https-addresses. As soon as I find out how to run these e
 1. Apache Maven (the maven executable itself may run with a JVM < version 9)
 1. A working maven-toolchains-plugin configuration file ([~/.m2/toolchains.xml](http://maven.apache.org/plugins/maven-toolchains-plugin/toolchains/jdk.html))
 1. JDK 9 with Project Jigsaw
+1. Optional: An IDE with JDK9 support. 
+  1. [Eclipse Neon](http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/neonr) with its [Java 9 Support Plugin](https://marketplace.eclipse.org/content/java-9-support-beta-neon).
 
 
 ### <a name="Setup"></a> 1.2 Setup and compile and compile instructions
