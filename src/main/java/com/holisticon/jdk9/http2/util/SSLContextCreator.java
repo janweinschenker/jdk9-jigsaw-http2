@@ -31,7 +31,7 @@ public class SSLContextCreator {
 		LOG.log(Level.INFO, "Testing socket factory with SSLContext:");
 		try {
 			// SSLContext protocols: TLS, SSL, SSLv3
-			SSLContext sc = SSLContext.getInstance("TLS");
+			SSLContext sc = SSLContext.getInstance("SSLv3");
 			LOG.log(Level.INFO, "SSLContext class: " + sc.getClass());
 			LOG.log(Level.INFO, "   Protocol: " + sc.getProtocol());
 			LOG.log(Level.INFO, "   Provider: " + sc.getProvider());

@@ -33,8 +33,7 @@ import com.holisticon.jdk9.http2.util.SSLContextCreator;
  */
 public class ResponseAsyncMulti extends AbstractResponseStrategy {
 
-	private static final Logger LOG = Logger
-			.getLogger(ResponseAsyncMulti.class.getName());
+	private static final Logger LOG = Logger.getLogger(ResponseAsyncMulti.class.getName());
 
 	/**
 	 * 
@@ -46,8 +45,7 @@ public class ResponseAsyncMulti extends AbstractResponseStrategy {
 	 * @return
 	 */
 	@Override
-	public List<CompletableFuture<File>> getCompletableFutures(
-			List<URI> targets) {
+	public List<CompletableFuture<File>> getCompletableFutures(List<URI> targets) {
 		List<CompletableFuture<File>> futures = new ArrayList<CompletableFuture<File>>();
 		SSLContext context = SSLContextCreator.getContext();
 		HttpClient client = HttpClient.create().sslContext(context).build();
@@ -58,40 +56,28 @@ public class ResponseAsyncMulti extends AbstractResponseStrategy {
 
 			Path downloadDirectory = getDownloadPath(target);
 
-			client.request(target).version(Version.HTTP_2).GET()
-					.multiResponseAsync(
-							HttpResponse.multiFile(downloadDirectory))
-					.whenCompleteAsync((it, err) -> {
-						LOG.log(Level.INFO, it.keySet().toString());
-					}).thenApplyAsync((Map<URI, Path> mp) -> {
+			client.request(target).version(Version.HTTP_2).GET().multiResponseAsync(HttpResponse.multiFile(downloadDirectory)).whenCompleteAsync((it, err) -> {
+				LOG.log(Level.INFO, it.keySet().toString());
+			}).thenApplyAsync((Map<URI, Path> mp) -> {
 
-						Map<URI, File> downloadedFiles = new HashMap<URI, File>();
+				Map<URI, File> downloadedFiles = new HashMap<URI, File>();
 
-						for (Iterator<URI> i = mp.keySet().iterator(); i
-								.hasNext();) {
-							URI eachUri = i.next();
-							Path hostSpecificDirectory = mp.get(eachUri);
+				for (Iterator<URI> i = mp.keySet().iterator(); i.hasNext();) {
+					URI eachUri = i.next();
+					Path hostSpecificDirectory = mp.get(eachUri);
 
-							downloadedFiles.put(eachUri,
-									hostSpecificDirectory.toFile());
+					downloadedFiles.put(eachUri, hostSpecificDirectory.toFile());
 
-							futures.add(CompletableFuture
-									.completedFuture(
-											hostSpecificDirectory.toFile())
-									.whenCompleteAsync((it, err) -> {
-										if (it != null) {
-											LOG.log(Level.INFO,
-													"saved to disk: " + it
-															.getAbsolutePath());
-										} else {
-											LOG.log(Level.SEVERE, err.getClass()
-													.getSimpleName());
-										}
-									}));
+					futures.add(CompletableFuture.completedFuture(hostSpecificDirectory.toFile()).whenCompleteAsync((it, err) -> {
+						if (it != null) {
+							LOG.log(Level.INFO, "saved to disk: " + it.getAbsolutePath());
+						} else {
+							LOG.log(Level.SEVERE, err.getClass().getSimpleName());
 						}
-						return CompletableFuture
-								.completedFuture(downloadedFiles);
-					}, Executors.newCachedThreadPool());
+					}));
+				}
+				return CompletableFuture.completedFuture(downloadedFiles);
+			}, Executors.newCachedThreadPool());
 		}
 		return futures;
 	}

@@ -25,8 +25,7 @@ import com.holisticon.jdk9.http2.util.SSLContextCreator;
  */
 public class ResponseAsync extends AbstractResponseStrategy {
 
-	private static final Logger LOG = Logger
-			.getLogger(ResponseAsync.class.getName());
+	private static final Logger LOG = Logger.getLogger(ResponseAsync.class.getName());
 
 	/**
 	 * 
@@ -39,14 +38,12 @@ public class ResponseAsync extends AbstractResponseStrategy {
 	 * @throws NoSuchAlgorithmException
 	 */
 	@Override
-	public List<CompletableFuture<File>> getCompletableFutures(
-			List<URI> targets) {
+	public List<CompletableFuture<File>> getCompletableFutures(List<URI> targets) {
 		SSLContext context = SSLContextCreator.getContext();
 		HttpClient client = HttpClient.create().sslContext(context).build();
 
 		List<CompletableFuture<File>> futures = targets.stream().map(target -> {
-			HttpRequest request = client.request(target).version(Version.HTTP_2)
-					.GET();
+			HttpRequest request = client.request(target).version(Version.HTTP_2).GET();
 			return request.responseAsync().thenCompose(response -> {
 				Path dest = prepareDownloadPathFor(target);
 				if (response.statusCode() == 200) {
