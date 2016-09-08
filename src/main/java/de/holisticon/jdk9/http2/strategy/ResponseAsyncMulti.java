@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.holisticon.jdk9.http2.strategy;
+package de.holisticon.jdk9.http2.strategy;
 
 import java.io.File;
 import java.net.URI;
@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 
 import javax.net.ssl.SSLContext;
 
-import com.holisticon.jdk9.http2.util.SSLContextCreator;
+import de.holisticon.jdk9.http2.util.SSLContextCreator;
 
 /**
  * I create an instance of an http2 client. This client will asynchronously

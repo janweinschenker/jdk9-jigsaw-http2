@@ -3,7 +3,7 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.holisticon.jdk9</groupId>
+	<groupId>de.holisticon.jdk9</groupId>
 	<artifactId>http2-jigsaw-showcase</artifactId>
 	<version>1.0</version>
 
@@ -35,7 +35,7 @@
 								<argument>${java.logging.format}</argument>
 								<argument>-classpath</argument>
 								<classpath />
-								<argument>com.holisticon.jdk9.http2.ResponseAsyncExample</argument>
+								<argument>de.holisticon.jdk9.http2.ResponseAsyncExample</argument>
 							</arguments>
 							
 							
@@ -65,7 +65,7 @@
 								<argument>${java.logging.format}</argument>
 								<argument>-classpath</argument>
 								<classpath />
-								<argument>com.holisticon.jdk9.http2.ResponseAsyncMultiExample</argument>
+								<argument>de.holisticon.jdk9.http2.ResponseAsyncMultiExample</argument>
 							</arguments>
 						</configuration>
 					</plugin>
@@ -92,7 +92,7 @@
 							<arguments>
 								<argument>-classpath</argument>
 								<classpath />
-								<argument>com.holisticon.jdk9.http2.CancelClientExample</argument>
+								<argument>de.holisticon.jdk9.http2.CancelClientExample</argument>
 							</arguments>
 						</configuration>
 					</plugin>

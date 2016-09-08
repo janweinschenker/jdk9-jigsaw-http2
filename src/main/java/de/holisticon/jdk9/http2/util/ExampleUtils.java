@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.holisticon.jdk9.http2.util;
+package de.holisticon.jdk9.http2.util;
 
 import java.io.File;
 import java.net.URI;
@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.holisticon.jdk9.http2.strategy.AbstractResponseStrategy;
+import de.holisticon.jdk9.http2.strategy.AbstractResponseStrategy;
 
 /**
  * @author janweinschenker

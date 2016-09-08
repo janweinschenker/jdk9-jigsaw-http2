@@ -1,4 +1,4 @@
-package com.holisticon.jdk9.http2;
+package de.holisticon.jdk9.http2;
 
 import java.net.URI;
 import java.net.URISyntaxException;

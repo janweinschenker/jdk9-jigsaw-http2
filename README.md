@@ -45,19 +45,19 @@ The examples can be executed with the exec-maven-plugin.
 
 ### <a name="ResponseAsync"></a> 2.1 Fetching a list of target URIs asynchronously
 
-This example is implemented in [ResponseAsync.java](./src/main/java/com/holisticon/jdk9/http2/strategy/ResponseAsync.java).
+This example is implemented in [ResponseAsync.java](./src/main/java/de/holisticon/jdk9/http2/strategy/ResponseAsync.java).
 
 1. If not done already, compile the sources 
   1. `$> mvn clean:clean package`
 1. Execute the example code with maven by using the correct profile.
   1. `$> mvn exec:exec -PResponseAsyncExample`
-1. The example will contact the configured http servers ([see UriProvider.java](./src/main/java/com/holisticon/jdk9/http2/util/UriProvider.java)) and will try to download one html-file from every server.
+1. The example will contact the configured http servers ([see UriProvider.java](./src/main/java/de/holisticon/jdk9/http2/util/UriProvider.java)) and will try to download one html-file from every server.
   1. This might take several minutes.
 1. Downloaded files can be found in [./downloads/ResponseAsync](./downloads/ResponseAsync).
 
 ### <a name="ResponseAsyncMulti"></a> 2.2 Fetching a list of target URIs asynchronously with multi response
 
-This example is implemented in [ResponseAsyncMulti.java](./src/main/java/com/holisticon/jdk9/http2/strategy/ResponseAsyncMulti.java).
+This example is implemented in [ResponseAsyncMulti.java](./src/main/java/de/holisticon/jdk9/http2/strategy/ResponseAsyncMulti.java).
 
 The client will download an HTML file from the server. If the server pushes any other resources, they will be processed as well.
 
@@ -65,13 +65,13 @@ The client will download an HTML file from the server. If the server pushes any 
   1. `$> mvn clean:clean package`
 1. Execute the example code with maven by using the correct profile.
   1. `$> mvn exec:exec -PResponseAsyncMultiExample`
-1. The example will contact the configured http servers ([see UriProvider.java](./src/main/java/com/holisticon/jdk9/http2/util/UriProvider.java)) and will try to download one html-file from every server.
+1. The example will contact the configured http servers ([see UriProvider.java](./src/main/java/de/holisticon/jdk9/http2/util/UriProvider.java)) and will try to download one html-file from every server.
   1. This might take several minutes.
 1. Downloaded files can be found in [./downloads/ResponseAsyncMulti](./downloads/ResponseAsyncMulti).
 
 ### <a name="CancelClient"></a> 2.3 Cancel an HTTP request
 
-This example is implemented in [CancelClientExample.java](./src/main/java/com/holisticon/jdk9/http2/CancelClientExample.java).
+This example is implemented in [CancelClientExample.java](./src/main/java/de/holisticon/jdk9/http2/CancelClientExample.java).
 
 The client will initiate an HTTP GET request and will cancel it after 10 milliseconds. 
 

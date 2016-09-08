@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.holisticon.jdk9.http2.strategy;
+package de.holisticon.jdk9.http2.strategy;
 
 import java.io.File;
 import java.net.URI;

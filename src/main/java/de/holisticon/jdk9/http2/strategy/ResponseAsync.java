@@ -1,4 +1,4 @@
-package com.holisticon.jdk9.http2.strategy;
+package de.holisticon.jdk9.http2.strategy;
 
 import java.io.File;
 import java.net.URI;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 import javax.net.ssl.SSLContext;
 
-import com.holisticon.jdk9.http2.util.SSLContextCreator;
+import de.holisticon.jdk9.http2.util.SSLContextCreator;
 
 /**
  * This class will use an http2 request to fetch an html-file from a URI. This

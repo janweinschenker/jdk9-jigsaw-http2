@@ -1,4 +1,4 @@
-package com.holisticon.jdk9.http2;
+package de.holisticon.jdk9.http2;
 
 import java.io.File;
 import java.net.URI;
@@ -7,9 +7,9 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import com.holisticon.jdk9.http2.strategy.ResponseAsync;
-import com.holisticon.jdk9.http2.util.ExampleUtils;
-import com.holisticon.jdk9.http2.util.UriProvider;
+import de.holisticon.jdk9.http2.strategy.ResponseAsync;
+import de.holisticon.jdk9.http2.util.ExampleUtils;
+import de.holisticon.jdk9.http2.util.UriProvider;
 
 /**
  * 
