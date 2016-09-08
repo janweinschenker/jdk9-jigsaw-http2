@@ -59,7 +59,7 @@ This example is implemented in [ResponseAsync.java](./src/main/java/com/holistic
 
 This example is implemented in [ResponseAsyncMulti.java](./src/main/java/com/holisticon/jdk9/http2/strategy/ResponseAsyncMulti.java).
 
-The client will download an HTML file from the server. If the server pushes any other resources
+The client will download an HTML file from the server. If the server pushes any other resources, they will be processed as well.
 
 1. If not done already, compile the sources 
   1. `$> mvn clean:clean package`
