@@ -17,7 +17,7 @@ retrieve contents from https-addresses. As soon as I find out how to run these e
 2.1 [Fetching a list of target URIs asynchronously](#ResponseAsync)<br/>
 2.2 [Fetching a list of target URIs asynchronously with multi response](#ResponseAsyncMulti)<br/>
 2.3 [Cancel an HTTP request](#CancelClient)<br/>
-2.4 [Clean the target and downloads folder](#Clean)
+2.4 [Clean the target and downloads folder](#Clean)<br/>
 
 3 [Contribute](#Contribute)<br/>
 
