@@ -32,7 +32,7 @@ public class UriProvider {
 			addUri(uriList, PROTOCOL + "://www.ist-http2-aktiviert.de");
 			addUri(uriList, PROTOCOL + "://www.google.de");
 			addUri(uriList, PROTOCOL + "://www.http2demo.io");
-			addUri(uriList, PROTOCOL + "://nghttp2.org");
+			//addUri(uriList, PROTOCOL + "://www.holisticon.de");
 
 		} catch (URISyntaxException e) {
 			LOG.log(Level.WARNING, "URISyntaxException", e);
