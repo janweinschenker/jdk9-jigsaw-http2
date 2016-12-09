@@ -8,6 +8,8 @@ retrieve contents from https-addresses. As soon as I find out how to run these e
 
 *As of now, this seems to be a bug in the JDK, see [the OpenJDK bugtracker](https://bugs.openjdk.java.net/browse/JDK-8157482).*
 
+There is currently an [Issue in IntelliJ 2016.3](https://youtrack.jetbrains.com/issue/IDEA-162653) that prevents projects based on the Jigsaw-JDK to run properly.
+
 ## Contents
 1 [How to run this Code](#howtorun) <br/>
 1.1 [Prerequisites](#Prerequisites) <br/>
