@@ -1,0 +1,7 @@
+2016/11/29 11:40:17 [emerg] 1#1: "gzip" directive is duplicate in /etc/nginx/conf.d/nginx.conf:1
+2016/11/29 11:41:28 [emerg] 1#1: "gzip" directive is duplicate in /etc/nginx/conf.d/nginx.conf:1
+2016/11/29 11:41:46 [emerg] 1#1: "gzip" directive is duplicate in /etc/nginx/conf.d/nginx.conf:1
+2016/11/29 11:45:22 [emerg] 1#1: "gzip" directive is duplicate in /etc/nginx/conf.d/nginx.conf:1
+2016/11/29 15:21:53 [error] 7#7: *7 open() "/usr/share/nginx/html/favicon.ico" failed (2: No such file or directory), client: 172.17.0.1, server: www.example.com, request: "GET /favicon.ico HTTP/1.1", host: "www.example.com"
+2016/11/29 15:21:53 [error] 7#7: *7 open() "/usr/share/nginx/html/favicon.ico" failed (2: No such file or directory), client: 172.17.0.1, server: www.example.com, request: "GET /favicon.ico HTTP/1.1", host: "www.example.com"
+2016/12/02 12:11:02 [error] 6#6: *46 open() "/usr/share/nginx/html/favicon.ico" failed (2: No such file or directory), client: 172.17.0.1, server: www.example.com, request: "GET /favicon.ico HTTP/1.1", host: "www.example.com", referrer: "http://www.example.com/"
