@@ -36,7 +36,7 @@ public class ResponseAsyncExample {
 
 			HttpResponse<String> response = client.sendAsync(request, HttpResponse.BodyHandler.asString()).get();
 
-			printResponse(response);
+			ExampleUtils.printResponse(response);
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
@@ -47,28 +47,5 @@ public class ResponseAsyncExample {
 
 	}
 
-	private static void printResponse(HttpResponse<String> response) {
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println("##################################################");
-		System.out.println();
-
-		System.out.println("Response:     " + response.body());
-		System.out.println();
-		System.out.println("HTTP-Version: " + response.version());
-		response.headers().map().forEach((header, values) -> System.out.println("Header: " + header + " / value: "
-				+ values.stream().map(value -> value.trim()).reduce(String::concat)));
-
-		System.out.println();
-		System.out.println("##################################################");
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-	}
 
 }
