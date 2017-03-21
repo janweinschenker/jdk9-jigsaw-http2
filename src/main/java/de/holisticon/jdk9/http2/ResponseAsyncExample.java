@@ -1,16 +1,15 @@
 package de.holisticon.jdk9.http2;
 
-import java.io.File;
+import java.net.CookieManager;
 import java.net.URI;
-import java.lang.String;
+import java.net.URISyntaxException;
+import java.time.Duration;
+import java.util.concurrent.ExecutionException;
+
+import de.holisticon.jdk9.http2.util.ExampleUtils;
+import jdk.incubator.http.HttpClient;
 import jdk.incubator.http.HttpRequest;
 import jdk.incubator.http.HttpResponse;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
-import de.holisticon.jdk9.http2.strategy.ResponseAsync;
-import de.holisticon.jdk9.http2.util.ExampleUtils;
-import de.holisticon.jdk9.http2.util.UriProvider;
 
 /**
  * 
@@ -23,20 +22,53 @@ import de.holisticon.jdk9.http2.util.UriProvider;
 public class ResponseAsyncExample {
 
 	public static void main(String[] args) {
-		ResponseAsyncExample session = new ResponseAsyncExample();
-		session.go();
+
+		try {
+			HttpClient client = ExampleUtils.createHttpClient();
+			URI uri = new URI("https://localhost:8443/greeting?name=JavaLand");
+			HttpRequest request = HttpRequest.newBuilder().uri(uri).version(HttpClient.Version.HTTP_2).GET()
+					// .DELETE()
+					// .POST(body)
+					// .PUT(body)
+					// .timeout(Duration.ofSeconds(30))
+					// .expectContinue(true)
+					.build();
+
+			HttpResponse<String> response = client.sendAsync(request, HttpResponse.BodyHandler.asString()).get();
+
+			printResponse(response);
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
 
 	}
 
-	public void go() {
-		List<URI> targets = UriProvider.getInstance().getUriList();
+	private static void printResponse(HttpResponse<String> response) {
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println("##################################################");
+		System.out.println();
 
-		List<CompletableFuture<File>> futures = ExampleUtils.getCompletableFutures(new ResponseAsync(), targets);
+		System.out.println("Response:     " + response.body());
+		System.out.println();
+		System.out.println("HTTP-Version: " + response.version());
+		response.headers().map().forEach((header, values) -> System.out.println("Header: " + header + " / value: "
+				+ values.stream().map(value -> value.trim()).reduce(String::concat)));
 
-		CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
-
-		ExampleUtils.printFuturesReport(futures);
-
+		System.out.println();
+		System.out.println("##################################################");
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
 	}
 
 }
