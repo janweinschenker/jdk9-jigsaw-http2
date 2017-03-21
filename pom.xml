@@ -9,13 +9,17 @@
 
 	<properties>
 		<java.version>9</java.version>
-		<java.9.executable>/Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/bin/java</java.9.executable>
-		<additionalRuntimeArgLine>-addmods java.xml.bind</additionalRuntimeArgLine>
+		<java.9.executable>/Library/Java/JavaVirtualMachines/jdk-9_153.jdk/Contents/Home/bin/java</java.9.executable>
+		<additionalRuntimeArgLine>--add-modules=java.xml.bind,jdk.incubator.httpclient,java.base</additionalRuntimeArgLine>
 		<java.logging.format>-Djava.util.logging.SimpleFormatter.format='%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s %2$s %5$s%6$s%n'</java.logging.format>
 	</properties>
 	<profiles>
 		<profile>
 			<id>ResponseAsyncExample</id>
+			<activation>
+                <!-- Java 9 doesn't identify itself as "1.9" but "9" -->
+                <jdk>9</jdk>
+            </activation>
 			<build>
 				<plugins>
 					<plugin>
@@ -35,10 +39,9 @@
 								<argument>${java.logging.format}</argument>
 								<argument>-classpath</argument>
 								<classpath />
+								<argument>${additionalRuntimeArgLine}</argument>
 								<argument>de.holisticon.jdk9.http2.ResponseAsyncExample</argument>
 							</arguments>
-							
-							
 						</configuration>
 					</plugin>
 				</plugins>
@@ -65,6 +68,7 @@
 								<argument>${java.logging.format}</argument>
 								<argument>-classpath</argument>
 								<classpath />
+								<argument>${additionalRuntimeArgLine}</argument>
 								<argument>de.holisticon.jdk9.http2.ResponseAsyncMultiExample</argument>
 							</arguments>
 						</configuration>
@@ -92,6 +96,7 @@
 							<arguments>
 								<argument>-classpath</argument>
 								<classpath />
+								<argument>${additionalRuntimeArgLine}</argument>
 								<argument>de.holisticon.jdk9.http2.CancelClientExample</argument>
 							</arguments>
 						</configuration>
@@ -125,12 +130,20 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5.1</version>
+				<version>3.6.1</version>
 				<configuration>
 					<verbose>true</verbose>
 					<fork>true</fork>
 					<source>9</source>
-					<target>1.9</target>
+					<target>9</target>
+					<jdkToolchain>
+                		<version>9</version>
+              		</jdkToolchain>
+              		<release>9</release>
+					<compilerArgs>
+						<arg>-verbose</arg>
+						
+					</compilerArgs>
 				</configuration>
 			</plugin>
 			<plugin>

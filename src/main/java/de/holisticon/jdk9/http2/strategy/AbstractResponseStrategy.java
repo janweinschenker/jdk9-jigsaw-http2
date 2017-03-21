@@ -20,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
 public abstract class AbstractResponseStrategy {
 
 	/**
-	 * Get a list of {@link CompletableFuture} objects. How this is done must be
+	 * Get a list of {@link java.util.concurrent.CompletableFuture} objects. How this is done must be
 	 * implemented in the subclass.
 	 * 
 	 * @param targets

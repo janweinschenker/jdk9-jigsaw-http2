@@ -2,8 +2,9 @@ package de.holisticon.jdk9.http2;
 
 import java.io.File;
 import java.net.URI;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.lang.String;
+import jdk.incubator.http.HttpRequest;
+import jdk.incubator.http.HttpResponse;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 

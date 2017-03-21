@@ -1,24 +1,25 @@
 package de.holisticon.jdk9.http2;
 
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.http.HttpClient.Version;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import de.holisticon.jdk9.http2.util.ExampleUtils;
+import jdk.incubator.http.HttpClient;
+import jdk.incubator.http.HttpRequest;
+import jdk.incubator.http.HttpResponse.BodyHandler;
+
 public class CancelClientExample {
 
 	private static final Logger LOG = Logger.getLogger(CancelClientExample.class.getName());
 
 	public static void main(String[] args) {
-		CancelClientExample client = new CancelClientExample();
+		CancelClientExample clientExample = new CancelClientExample();
 		try {
-			client.send();
+			clientExample.send();
 		} catch (InterruptedException | ExecutionException | URISyntaxException e) {
 			LOG.log(Level.SEVERE, e.getClass().getSimpleName());
 		} catch (CancellationException e) {
@@ -27,11 +28,10 @@ public class CancelClientExample {
 		}
 	}
 
-	public HttpResponse send() throws InterruptedException, ExecutionException, URISyntaxException {
-
-		HttpRequest request = HttpRequest.create(new URI("http://www.holisticon.de")).body(HttpRequest.noBody())
-				.version(Version.HTTP_2).GET();
-		CompletableFuture<HttpResponse> future = request.responseAsync();
+	public String send() throws InterruptedException, ExecutionException, URISyntaxException {
+		HttpClient client = ExampleUtils.createHttpClient();
+		HttpRequest request = ExampleUtils.createHttpRequest("http://www.holisticon.de");
+		CompletableFuture<String> future = client.sendAsync(request, BodyHandler.asString()).thenApply(response -> response.body());
 
 		Thread.sleep(10);
 		if (!future.isDone()) {
@@ -39,8 +39,8 @@ public class CancelClientExample {
 			LOG.info("Sorry, timeout!");
 		}
 		LOG.info("Request finished without timeout.");
-		HttpResponse response = future.get();
-		LOG.info(response.uri().toASCIIString());
+		String response = future.get();
+		LOG.info(response);
 		return response;
 	}
 }

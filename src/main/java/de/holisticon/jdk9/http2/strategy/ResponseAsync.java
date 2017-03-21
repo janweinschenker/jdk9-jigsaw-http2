@@ -1,22 +1,18 @@
 package de.holisticon.jdk9.http2.strategy;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpClient.Version;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.file.Path;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import javax.net.ssl.SSLContext;
-
-import de.holisticon.jdk9.http2.util.SSLContextCreator;
+import de.holisticon.jdk9.http2.util.ExampleUtils;
+import jdk.incubator.http.HttpClient;
+import jdk.incubator.http.HttpRequest;
+import jdk.incubator.http.HttpResponse.BodyHandler;
 
 /**
  * This class will use an http2 request to fetch an html-file from a URI. This
@@ -37,38 +33,21 @@ public class ResponseAsync extends AbstractResponseStrategy {
 	 * 
 	 * @param targets
 	 * @return
+	 * @throws InterruptedException
+	 * @throws IOException
 	 * @throws NoSuchAlgorithmException
 	 */
 	@Override
 	public List<CompletableFuture<File>> getCompletableFutures(List<URI> targets) {
+		HttpClient client = ExampleUtils.createHttpClient();
 
-		// get the ssl context and use it to create an http client.
-		SSLContext context = SSLContextCreator.getContextInstance();
-		HttpClient client = HttpClient.create().sslContext(context).build();
-
-		List<CompletableFuture<File>> futures = targets.stream().map(target -> {
-			HttpRequest request = client.request(target).version(Version.HTTP_2).GET();
-			return request.responseAsync().thenCompose(response -> {
-				Path dest = prepareDownloadPathFor(target);
-				if (response.statusCode() == 200) {
-					// LOG.log(Level.INFO, dest.toString() + ": 200");
-					return response.bodyAsync(HttpResponse.asFile(dest));
-				} else {
-					// LOG.log(Level.INFO, dest.toString() + ": else");
-					return CompletableFuture.completedFuture(dest);
-				}
-			}).whenCompleteAsync((it, err) -> {
-				if (it != null) {
-					LOG.log(Level.INFO, "saved to disk: " + it.toString());
-				} else {
-					LOG.log(Level.SEVERE, err.getClass().getSimpleName());
-				}
-
-			}).thenApply((Path dest) -> {
-				// convert Path -> File
-				return dest.toFile();
-			});
-		}).collect(Collectors.toList());
+		List<CompletableFuture<File>> futures = targets.stream()
+				.map(target -> client
+						.sendAsync(ExampleUtils.createHttpRequest(target),
+								BodyHandler.asFile(prepareDownloadPathFor(target)))
+						.thenApply(response -> response.body()).thenApply(path -> path.toFile()))
+				.collect(Collectors.toList());
 		return futures;
 	}
+
 }

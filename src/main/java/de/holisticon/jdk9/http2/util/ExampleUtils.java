@@ -5,12 +5,19 @@ package de.holisticon.jdk9.http2.util;
 
 import java.io.File;
 import java.net.URI;
-import java.net.http.HttpRequest;
+import java.net.URISyntaxException;
+
+import jdk.incubator.http.HttpClient;
+import jdk.incubator.http.HttpRequest;
+import jdk.incubator.http.HttpClient.Version;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.net.ssl.SSLContext;
 
 import de.holisticon.jdk9.http2.strategy.AbstractResponseStrategy;
 
@@ -34,6 +41,28 @@ public class ExampleUtils {
 				}
 			}
 		}
+	}
+	
+	public static HttpClient createHttpClient() {
+		// get the ssl context and use it to create an http client.
+		SSLContext context = SSLContextCreator.getContextInstance();
+		HttpClient client = HttpClient.newBuilder().sslContext(context).version(Version.HTTP_2).build();
+		return client;
+	}
+	
+	public static HttpRequest createHttpRequest(String uriString) {
+		try {
+			URI uri = new URI(uriString);
+			return createHttpRequest(uri);
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			LOG.log(Level.SEVERE, "URISyntaxException", e);
+		}
+		return null;
+	}
+
+	public static HttpRequest createHttpRequest(URI uri) {
+			return HttpRequest.newBuilder(uri).version(Version.HTTP_2).GET().build();
 	}
 
 	/**
