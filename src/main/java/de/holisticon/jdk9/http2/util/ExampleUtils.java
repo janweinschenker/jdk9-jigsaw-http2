@@ -61,7 +61,11 @@ public class ExampleUtils {
 		System.out.println("##################################################");
 		System.out.println();
 
-		System.out.println("Response:     " + response.body());
+		if (response.body() != null && response.body().length() <= 200) {
+			System.out.println("Response:     " + response.body());
+		} else if (response.body() != null && response.body().length() > 200) {
+			System.out.println("Response:     " + response.body().substring(0, 199));
+		}
 		System.out.println();
 		System.out.println("HTTP-Version: " + response.version());
 		response.headers().map().forEach((header, values) -> System.out.println("Header: " + header + " / value: "
