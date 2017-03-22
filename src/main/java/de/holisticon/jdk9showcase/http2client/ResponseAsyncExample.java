@@ -1,12 +1,10 @@
-package de.holisticon.jdk9.http2;
+package de.holisticon.jdk9showcase.http2client;
 
-import java.net.CookieManager;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.Duration;
 import java.util.concurrent.ExecutionException;
 
-import de.holisticon.jdk9.http2.util.ExampleUtils;
+import de.holisticon.jdk9showcase.http2client.util.ExampleUtils;
 import jdk.incubator.http.HttpClient;
 import jdk.incubator.http.HttpRequest;
 import jdk.incubator.http.HttpResponse;
@@ -25,7 +23,9 @@ public class ResponseAsyncExample {
 
 		try {
 			HttpClient client = ExampleUtils.createHttpClient();
-			URI uri = new URI("https://localhost:8443/greeting?name=JavaLand");
+//			URI uri = new URI("https://localhost:8443/greeting?name=JavaLand");
+			URI uri = new URI("https://www.example.com/#/");
+
 			HttpRequest request = HttpRequest.newBuilder().uri(uri).version(HttpClient.Version.HTTP_2).GET()
 					// .DELETE()
 					// .POST(body)

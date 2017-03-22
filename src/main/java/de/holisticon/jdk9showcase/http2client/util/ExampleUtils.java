@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.holisticon.jdk9.http2.util;
+package de.holisticon.jdk9showcase.http2client.util;
 
 import java.net.CookieManager;
 import java.net.URI;

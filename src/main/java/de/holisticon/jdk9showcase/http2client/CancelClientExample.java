@@ -1,4 +1,4 @@
-package de.holisticon.jdk9.http2;
+package de.holisticon.jdk9showcase.http2client;
 
 import java.net.URISyntaxException;
 import java.util.concurrent.CancellationException;
@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import de.holisticon.jdk9.http2.util.ExampleUtils;
+import de.holisticon.jdk9showcase.http2client.util.ExampleUtils;
 import jdk.incubator.http.HttpClient;
 import jdk.incubator.http.HttpRequest;
 import jdk.incubator.http.HttpResponse.BodyHandler;

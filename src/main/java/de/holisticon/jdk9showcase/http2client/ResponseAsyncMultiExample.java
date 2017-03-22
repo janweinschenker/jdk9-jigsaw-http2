@@ -1,4 +1,4 @@
-package de.holisticon.jdk9.http2;
+package de.holisticon.jdk9showcase.http2client;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import de.holisticon.jdk9.http2.util.ExampleUtils;
+import de.holisticon.jdk9showcase.http2client.util.ExampleUtils;
 import jdk.incubator.http.HttpClient;
 import jdk.incubator.http.HttpRequest;
 import jdk.incubator.http.HttpResponse;
@@ -36,6 +36,7 @@ public class ResponseAsyncMultiExample {
 //			 URI uri = new
 //			 URI("https://localhost:8443/greeting?name=Javaland");
 //			URI uri = new URI("https://blog.cloudflare.com/");
+//			URI uri = new URI("https://www.example.com/#/");
 			URI uri = new URI("https://blog.cloudflare.com/announcing-support-for-http-2-server-push-2/");
 			HttpRequest request = ExampleUtils.createHttpRequest(uri);
 			HttpClient client = ExampleUtils.createHttpClient();
