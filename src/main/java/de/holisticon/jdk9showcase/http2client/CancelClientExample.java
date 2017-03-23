@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import de.holisticon.jdk9showcase.http2client.util.ExampleUtils;
 import jdk.incubator.http.HttpClient;
+import jdk.incubator.http.HttpClient.Version;
 import jdk.incubator.http.HttpRequest;
 import jdk.incubator.http.HttpResponse.BodyHandler;
 
@@ -29,7 +30,7 @@ public class CancelClientExample {
 	}
 
 	public String send() throws InterruptedException, ExecutionException, URISyntaxException {
-		HttpClient client = ExampleUtils.createHttpClient();
+		HttpClient client = ExampleUtils.createHttpClient(Version.HTTP_2);
 		HttpRequest request = ExampleUtils.createHttpRequest("http://www.holisticon.de");
 		CompletableFuture<String> future = client.sendAsync(request, BodyHandler.asString()).thenApply(response -> response.body());
 

@@ -6,17 +6,10 @@ package de.holisticon.jdk9showcase.http2client.util;
 import java.net.CookieManager;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+import java.time.Duration;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-import java.security.cert.X509Certificate;
-import java.time.Duration;
 
 import jdk.incubator.http.HttpClient;
 import jdk.incubator.http.HttpClient.Version;
@@ -31,9 +24,12 @@ public class ExampleUtils {
 
 	private static final Logger LOG = Logger.getLogger(ExampleUtils.class.getName());
 
-	public static HttpClient createHttpClient() {
-		CookieManager cookieManager = new CookieManager();
-		HttpClient client = HttpClient.newBuilder().cookieManager(cookieManager).version(Version.HTTP_2).build();
+	public static HttpClient createHttpClient(Version version) {
+		HttpClient client = HttpClient.newBuilder()
+				.version(version)
+				.followRedirects(HttpClient.Redirect.ALWAYS)
+				//.executor(Executors.newCachedThreadPool())
+				.build();
 		return client;
 	}
 
@@ -49,7 +45,11 @@ public class ExampleUtils {
 	}
 
 	public static HttpRequest createHttpRequest(URI uri) {
-		return HttpRequest.newBuilder(uri).version(Version.HTTP_2).timeout(Duration.ofSeconds(2)).GET().build();
+		return HttpRequest.newBuilder(uri)
+				.version(Version.HTTP_2)
+				.timeout(Duration.ofSeconds(2))
+				.GET()
+				.build();
 	}
 
 	public static void printResponse(HttpResponse<String> response) {
