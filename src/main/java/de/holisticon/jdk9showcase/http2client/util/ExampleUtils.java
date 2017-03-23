@@ -23,9 +23,20 @@ public class ExampleUtils {
 	private static final Logger LOG = Logger.getLogger(ExampleUtils.class.getName());
 
 	public static HttpClient createHttpClient(Version version) {
-		HttpClient client = HttpClient.newBuilder().version(version).followRedirects(HttpClient.Redirect.ALWAYS)
+		HttpClient client = HttpClient
+				.newBuilder()
+				.version(version)
+				.followRedirects(HttpClient.Redirect.ALWAYS)
 				.build();
 		return client;
+	}
+
+	public static HttpRequest createHttpRequest(URI uri) {
+		return HttpRequest.newBuilder(uri)
+				.version(Version.HTTP_2)
+				.timeout(Duration.ofSeconds(2))
+				.GET()
+				.build();
 	}
 
 	public static HttpRequest createHttpRequest(String uriString) {
@@ -36,10 +47,6 @@ public class ExampleUtils {
 			LOG.log(Level.SEVERE, "URISyntaxException", e);
 		}
 		return null;
-	}
-
-	public static HttpRequest createHttpRequest(URI uri) {
-		return HttpRequest.newBuilder(uri).version(Version.HTTP_2).timeout(Duration.ofSeconds(2)).GET().build();
 	}
 
 	public static void printResponse(HttpResponse<String> response) {
