@@ -11,7 +11,7 @@
 		<java.version>9</java.version>
 		<java.9.executable>/Library/Java/JavaVirtualMachines/jdk-9_153.jdk/Contents/Home/bin/java</java.9.executable>
 		<additionalRuntimeArgLine>--add-modules=java.xml.bind,jdk.incubator.httpclient,java.base</additionalRuntimeArgLine>
-	   <java.logging.format>-Djava.util.logging.SimpleFormatter.format=%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s  || %5$s %6$s%n</java.logging.format>
+	   <java.logging.format>-Djava.util.logging.SimpleFormatter.format=%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS  || %5$s %6$s%n</java.logging.format>
 		<!-- 
 	   <java.logging.format>-Djava.util.logging.SimpleFormatter.format=%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s %2$s %5$s%6$s%n</java.logging.format>
 		 -->

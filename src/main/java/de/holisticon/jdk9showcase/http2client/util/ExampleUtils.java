@@ -57,7 +57,9 @@ public class ExampleUtils {
 		}
 		LOG.log(Level.INFO, "");
 		LOG.log(Level.INFO, "HTTP-Version: " + response.version());
-		response.headers().map().forEach((header, values) -> LOG.log(Level.INFO, "Header: " + header + " / value: "
+		LOG.log(Level.INFO, "Statuscode:   " + response.statusCode());
+		LOG.log(Level.INFO, "Header:");
+		response.headers().map().forEach((header, values) -> LOG.log(Level.INFO, "  " + header + " = "
 				+ values.stream().map(value -> value.trim()).reduce(String::concat).get()));
 
 		LOG.log(Level.INFO, "");

@@ -43,6 +43,10 @@ public class ResponseAsyncExample {
 		URI uri = new URI("https://localhost:8443/greeting?name=JavaLand");
 		// URI uri = new URI("https://www.example.com/#/");
 
+		LOG.log(Level.INFO, "##################################################");
+		LOG.log(Level.INFO, "");
+		LOG.log(Level.INFO, "Sending request to: " + uri.toString());
+		
 		HttpRequest request = HttpRequest.newBuilder().uri(uri).version(HttpClient.Version.HTTP_2).GET()
 				// .DELETE()
 				// .POST(body)
