@@ -8,6 +8,8 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import de.holisticon.jdk9showcase.http2client.util.ExampleUtils;
 import jdk.incubator.http.HttpClient;
@@ -28,6 +30,8 @@ import jdk.incubator.http.MultiMapResult;
  */
 public class ResponseAsyncMultiExample {
 
+	private static final Logger LOG = Logger.getLogger(ResponseAsyncMultiExample.class.getName());
+
 	public static void main(String[] args) {
 
 		try {
@@ -45,10 +49,10 @@ public class ResponseAsyncMultiExample {
 		// URI uri = new URI("https://localhost:8443/greeting?name=Javaland");
 		// URI uri = new URI("https://blog.cloudflare.com/");
 		// URI uri = new URI("https://www.example.com/#/");
-		System.out.println();
-		System.out.println();
-		System.out.println("##################################################");
-		System.out.println("The following resources were pushed by the server:");
+		LOG.log(Level.INFO, "");
+		LOG.log(Level.INFO, "");
+		LOG.log(Level.INFO, "##################################################");
+		LOG.log(Level.INFO, "The following resources were pushed by the server:");
 		
 		
 		URI uri = new URI("https://blog.cloudflare.com/announcing-support-for-http-2-server-push-2/");
@@ -58,7 +62,7 @@ public class ResponseAsyncMultiExample {
 		MultiMapResult<String> multiMapResult = client.sendAsync(request, MultiProcessor.asMap((req) -> {
 					Optional<BodyHandler<String>> optional = Optional.of(HttpResponse.BodyHandler.asString());
 					//if (optional.isPresent()) {
-						System.out.println(" - " + req.uri());
+					LOG.log(Level.INFO, " - " + req.uri());
 					//}
 					return optional;
 				}, false))

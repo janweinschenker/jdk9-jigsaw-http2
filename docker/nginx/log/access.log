@@ -2156,3 +2156,4 @@
 172.17.0.1 - - [22/Mar/2017:15:21:46 +0000] "GET / HTTP/1.1" 200 393 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/602.4.8 (KHTML, like Gecko) Version/10.0.3 Safari/602.4.8"
 172.17.0.1 - - [22/Mar/2017:16:49:42 +0000] "GET / HTTP/1.1" 200 393 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/602.4.8 (KHTML, like Gecko) Version/10.0.3 Safari/602.4.8"
 172.17.0.1 - - [22/Mar/2017:20:18:06 +0000] "GET /assets/http_sequence.jpg HTTP/2.0" 200 2197868 "https://www.example.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:52.0) Gecko/20100101 Firefox/52.0"
+172.17.0.1 - - [23/Mar/2017:12:55:04 +0000] "GET / HTTP/1.1" 200 393 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/602.4.8 (KHTML, like Gecko) Version/10.0.3 Safari/602.4.8"

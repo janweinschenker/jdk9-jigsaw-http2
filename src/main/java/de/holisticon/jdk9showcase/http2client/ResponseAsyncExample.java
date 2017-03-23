@@ -3,6 +3,8 @@ package de.holisticon.jdk9showcase.http2client;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import de.holisticon.jdk9showcase.http2client.util.ExampleUtils;
 import jdk.incubator.http.HttpClient;
@@ -20,24 +22,26 @@ import jdk.incubator.http.HttpResponse;
  */
 public class ResponseAsyncExample {
 
+	private static final Logger LOG = Logger.getLogger(ResponseAsyncExample.class.getName());
+
 	public static void main(String[] args) {
 
 		try {
-			extracted();
+			startRequest();
 		} catch (URISyntaxException e) {
-			e.printStackTrace();
+			LOG.log(Level.SEVERE, "URISyntaxException", e);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			LOG.log(Level.SEVERE, "InterruptedException", e);
 		} catch (ExecutionException e) {
-			e.printStackTrace();
+			LOG.log(Level.SEVERE, "ExecutionException", e);
 		}
 
 	}
 
-	private static void extracted() throws URISyntaxException, InterruptedException, ExecutionException {
+	private static void startRequest() throws URISyntaxException, InterruptedException, ExecutionException {
 		HttpClient client = ExampleUtils.createHttpClient(Version.HTTP_2);
 		URI uri = new URI("https://localhost:8443/greeting?name=JavaLand");
-//			URI uri = new URI("https://www.example.com/#/");
+		// URI uri = new URI("https://www.example.com/#/");
 
 		HttpRequest request = HttpRequest.newBuilder().uri(uri).version(HttpClient.Version.HTTP_2).GET()
 				// .DELETE()
@@ -51,6 +55,5 @@ public class ResponseAsyncExample {
 
 		ExampleUtils.printResponse(response);
 	}
-
 
 }
