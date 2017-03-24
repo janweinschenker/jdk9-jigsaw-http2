@@ -32,6 +32,7 @@ public class ResponseAsyncExample {
 			LOG.log(Level.INFO, "");
 			ResponseAsyncExample example = new ResponseAsyncExample();
 			example.startRequest();
+			System.exit(0);
 		} catch (URISyntaxException e) {
 			LOG.log(Level.SEVERE, "URISyntaxException", e);
 		} catch (InterruptedException e) {

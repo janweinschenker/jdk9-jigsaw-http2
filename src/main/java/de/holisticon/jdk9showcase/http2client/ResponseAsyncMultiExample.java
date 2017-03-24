@@ -46,7 +46,7 @@ public class ResponseAsyncMultiExample {
 			LOG.log(Level.INFO, "The following resources were pushed by the server:");
 			ResponseAsyncMultiExample example = new ResponseAsyncMultiExample();
 			example.startRequest();
-
+            System.exit(0);
 		} catch (URISyntaxException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}

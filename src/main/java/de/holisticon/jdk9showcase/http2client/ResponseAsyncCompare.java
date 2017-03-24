@@ -33,6 +33,7 @@ public class ResponseAsyncCompare {
 		try {
             ResponseAsyncCompare compare = new ResponseAsyncCompare();
 			compare.startRequest(args);
+			System.exit(0);
 		} catch (URISyntaxException e) {
 			LOG.log(Level.SEVERE, "URISyntaxException", e);
 		} catch (InterruptedException e) {

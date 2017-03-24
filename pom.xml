@@ -135,6 +135,7 @@
 						<configuration>
 							<executable>${java.9.executable}</executable>
 							<arguments>
+								<argument>${java.logging.format}</argument>
 								<argument>-classpath</argument>
 								<classpath />
 								<argument>${additionalRuntimeArgLine}</argument>

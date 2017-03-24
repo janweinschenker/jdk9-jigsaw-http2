@@ -22,14 +22,23 @@ public class CancelClientExample {
 	public static void main(String[] args) {
 		CancelClientExample clientExample = new CancelClientExample();
 		try {
-			clientExample.send();
-		} catch (InterruptedException | ExecutionException | URISyntaxException e) {
-			LOG.log(Level.SEVERE, e.getClass().getSimpleName());
-		} catch (CancellationException e) {
-			LOG.log(Level.SEVERE, "The request has been cancelled: " + e.getClass().getSimpleName());
-			System.exit(0);
-		}
-	}
+            LOG.log(Level.INFO, "");
+            LOG.log(Level.INFO, "");
+            LOG.log(Level.INFO, "##################################################");
+
+            clientExample.send();
+
+
+        } catch (InterruptedException | ExecutionException | URISyntaxException e) {
+            LOG.log(Level.INFO, e.getClass().getSimpleName());
+        } catch (CancellationException e) {
+            LOG.log(Level.INFO, "The request has been cancelled: " + e.getClass().getSimpleName());
+            LOG.log(Level.INFO, "");
+            LOG.log(Level.INFO, "");
+            LOG.log(Level.INFO, "##################################################");
+            System.exit(0);
+        }
+    }
 
 	public String send() throws InterruptedException, ExecutionException, URISyntaxException {
 		HttpClient client = ExampleUtils.createHttpClient(VERSION);
@@ -37,13 +46,15 @@ public class CancelClientExample {
 		CompletableFuture<String> future = client.sendAsync(request, BodyHandler.asString()).thenApply(response -> response.body());
 
 		Thread.sleep(10);
+        String response;
 		if (!future.isDone()) {
 			future.cancel(true);
 			LOG.info("Sorry, timeout!");
-		}
-		LOG.info("Request finished without timeout.");
-		String response = future.get();
-		LOG.info(response);
+		} else {
+            LOG.info("Request finished without timeout.");
+        }
+        response = future.get();
+        LOG.info("Response: " + response);
 		return response;
 	}
 }
