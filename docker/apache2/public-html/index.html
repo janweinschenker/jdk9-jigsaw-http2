@@ -18,18 +18,24 @@ Esc: Escape from full-screen, or toggle overview
     <title>Hands-on Web Performance Analysis</title>
 
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"/>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="stylesheet" media="all" href="bower_components/reveal.js/css/reveal.css">
+    <link rel="stylesheet" media="all"
+          href="bower_components/reveal.js/css/reveal.css">
 
-    <link rel="stylesheet" media="all" href="bower_components/reveal.js/css/theme/beige.css" id="theme">
-    <link rel="stylesheet" media="all" href="bower_components/reveal.js/lib/css/fullscreen-img.css" />
+    <link rel="stylesheet" media="all"
+          href="bower_components/reveal.js/css/theme/beige.css" id="theme">
+    <link rel="stylesheet" media="all"
+          href="bower_components/reveal.js/lib/css/fullscreen-img.css"/>
     <link rel="shortcut icon" href="assets/brand/favicon.png">
 
     <!-- For syntax highlighting -->
-    <link rel="stylesheet" href="bower_components/reveal.js/lib/css/zenburn.css" id="highlight-theme">
+    <link rel="stylesheet" href="bower_components/reveal.js/lib/css/zenburn.css"
+          id="highlight-theme">
 
     <!-- If the query includes 'print-pdf', use the PDF print sheet -->
     <!--<script>
@@ -40,7 +46,8 @@ Esc: Escape from full-screen, or toggle overview
     <script src="lib/js/html5shiv.js"></script>
     <![endif]-->
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <style>
         .reveal {
@@ -114,24 +121,33 @@ Esc: Escape from full-screen, or toggle overview
     <div class="slides">
         <section>
             <h2>Hands-on Web Performance Analysis</h2>
-            <h5>with Chrome Dev Tools, Google PageSpeed Insights and WebPagetest</h5>
+            <h5>with Chrome Dev Tools, Google PageSpeed Insights and
+                WebPagetest</h5>
 
             <p style="margin-top:4em">
-                <a href="mailto:jan.weinschenker@holisticon.de">Jan Weinschenker</a><br/>
+                <a href="mailto:jan.weinschenker@holisticon.de">Jan
+                    Weinschenker</a><br/>
                 <a href="http://www.holisticon.de" target="_blank">www.holisticon.de</a><br/><br/>
-                <small>jan.weinschenker@holisticon.de<br/><br/>@janweinschenker</small>
+                <small>jan.weinschenker@holisticon.de<br/><br/>@janweinschenker
+                </small>
             </p>
 
         </section>
         <section data-background="#ffffff">
-            <img src="assets/logo_2016.png" width="100%" style="border: 0; box-shadow: none"/>
+            <img src="assets/logo_2016.png" width="100%"
+                 style="border: 0; box-shadow: none"/>
             <p>Management- and IT-Consulting</p>
             <p>Hamburg based team of 45 Consultants and Trainers</p>
         </section>
         <section>
-            <img src="assets/meetup.png" width="60%" style="border:none; background:none; -webkit-box-shadow: none;">
-            <p><a href="http://www.meetup.com/de-DE/Hamburg-Web-Performance-Group/" target="_blank">http://www.meetup.com/de-DE/Hamburg-Web-Performance-Group/</a></p>
-            <p><a href="https://twitter.com/hamwebperf/" target="_blank">@hamwebperf</a></p>
+            <img src="assets/meetup.png" width="60%"
+                 style="border:none; background:none; -webkit-box-shadow: none;">
+            <p>
+                <a href="http://www.meetup.com/de-DE/Hamburg-Web-Performance-Group/"
+                   target="_blank">http://www.meetup.com/de-DE/Hamburg-Web-Performance-Group/</a>
+            </p>
+            <p><a href="https://twitter.com/hamwebperf/" target="_blank">@hamwebperf</a>
+            </p>
         </section>
         <section>
             <section class="agenda">
@@ -162,7 +178,9 @@ Esc: Escape from full-screen, or toggle overview
             <section class="agenda">
                 <h2>Google PageSpeed Insights</h2>
                 <ul>
-                    <li class="fragment">Minification, Compression, Image Optimizing</li>
+                    <li class="fragment">Minification, Compression, Image
+                        Optimizing
+                    </li>
                     <li class="fragment">Below the Fold / Critical Path</li>
                     <li class="fragment hands-on">Hands-on</li>
                 </ul>
@@ -195,7 +213,9 @@ Esc: Escape from full-screen, or toggle overview
             <section>
                 <h2>History</h2>
                 <ul>
-                    <li>One of the first web browsers: 1990 LMB &ndash; Nicola Pellow</li>
+                    <li>One of the first web browsers: 1990 LMB &ndash; Nicola
+                        Pellow
+                    </li>
                 </ul>
                 <img src="assets/Line_Mode_Browser_Wikipedia.png" width="100%">
             </section>
@@ -218,19 +238,30 @@ Esc: Escape from full-screen, or toggle overview
                 <ul>
                     <li>HTML, CSS, JS, Icons, Images, Movies, ...</li>
                 </ul>
-                <img src="assets/spiegel-design.png" width="100%" style="border: none">
+                <img src="assets/spiegel-design.png" width="100%"
+                     style="border: none">
             </section>
             <section>
                 <h2>Performance by Design</h2>
-                <img src="assets/Performance_Budget.png" class="stretch" style="border:none;" />
+                <img src="assets/Performance_Budget.png" class="stretch"
+                     style="border:none;"/>
                 <ul>
-                    <li class="fragment">Think about performance from the beginning!</li>
-                    <li class="fragment">Who is our target audience? And who is not?</li>
-                    <li class="fragment">What are our performance requirements?</li>
-                    <li class="fragment">Define a fixed performance budget! (&Tilde; 1 sec)</li>
+                    <li class="fragment">Think about performance from the
+                        beginning!
+                    </li>
+                    <li class="fragment">Who is our target audience? And who is
+                        not?
+                    </li>
+                    <li class="fragment">What are our performance
+                        requirements?
+                    </li>
+                    <li class="fragment">Define a fixed performance budget! (&Tilde;
+                        1 sec)
+                    </li>
                 </ul>
                 <aside class="notes">
-                    Google Chrome Dev Tools: Throttle Regular 3G + DSL 2 MB/s, Screenshot Capture
+                    Google Chrome Dev Tools: Throttle Regular 3G + DSL 2 MB/s,
+                    Screenshot Capture
                 </aside>
             </section>
         </section>
@@ -249,24 +280,33 @@ Esc: Escape from full-screen, or toggle overview
                 <h2>TTFB</h2>
                 <ul>
                     <li class="fragment">Time to first byte</li>
-                    <li class="fragment">DNS-Lookup (chrome://net-internals/#dns)</li>
+                    <li class="fragment">DNS-Lookup
+                        (chrome://net-internals/#dns)
+                    </li>
                     <li class="fragment">Establish connection</li>
                     <li class="fragment">SSL-Handshake</li>
                     <li class="fragment">Send request</li>
-                    <li class="fragment">Wait for backend (hard disc, database, file system)</li>
+                    <li class="fragment">Wait for backend (hard disc, database,
+                        file system)
+                    </li>
                     <li class="fragment">Receive response</li>
                 </ul>
             </section>
-            <section fullscreen-img="assets/http_sequence.jpg" fullscreen-size="contain">
+            <section fullscreen-img="assets/http_sequence.jpg"
+                     fullscreen-size="contain">
 
             </section>
             <section>
                 <h2>TTFB</h2>
                 <ul>
-                    <li class="fragment">Improve backend performance (memory, cpu, hardware)</li>
+                    <li class="fragment">Improve backend performance (memory,
+                        cpu, hardware)
+                    </li>
                     <li class="fragment">Backend caching (e.g. Varnish)</li>
-                    <li class="fragment">Reduce geographical distance to user (CDN, SSL termination)</li>
-                    <li class="fragment">Use chunked encoding </li>
+                    <li class="fragment">Reduce geographical distance to user
+                        (CDN, SSL termination)
+                    </li>
+                    <li class="fragment">Use chunked encoding</li>
                     <li class="fragment">Use existing connections</li>
                 </ul>
             </section>
@@ -297,29 +337,50 @@ Esc: Escape from full-screen, or toggle overview
             <section>
                 <h2>Concatenating, Spriting, Inlining</h2>
                 <ul>
-                    <li class="fragment">Fewer requests <i class="fa fa-arrow-right" aria-hidden="true" style="font-size: .8em"></i> low latency</li>
+                    <li class="fragment">Fewer requests <i
+                            class="fa fa-arrow-right" aria-hidden="true"
+                            style="font-size: .8em"></i> low latency
+                    </li>
                     <li class="fragment">JS- and CCS-files can be combined</li>
-                    <li class="fragment">Images can be combined into spritemaps or fonts</li>
-                    <li class="fragment">Immediately required resources  can be inlined</li>
-                    <li class="fragment"><a href="https://www.spiegel.de" target="_blank">Spiegel.de</a></li>
-                    <li class="fragment"><a href="https://www.fcstpauli.de" target="_blank">FC St. Pauli</a></li>
-                    <li class="fragment"><a href="https:/www.smashingmagazine.com" target="_blank">Smashing Magazine</a><br/><br/></li>
+                    <li class="fragment">Images can be combined into spritemaps
+                        or fonts
+                    </li>
+                    <li class="fragment">Immediately required resources can be
+                        inlined
+                    </li>
+                    <li class="fragment"><a href="https://www.spiegel.de"
+                                            target="_blank">Spiegel.de</a></li>
+                    <li class="fragment"><a href="https://www.fcstpauli.de"
+                                            target="_blank">FC St. Pauli</a>
+                    </li>
+                    <li class="fragment"><a
+                            href="https:/www.smashingmagazine.com"
+                            target="_blank">Smashing Magazine</a><br/><br/></li>
 
-                    <li class="fragment"><i class="fa fa-exclamation-circle" aria-hidden="true" style="color:red; font-size:1em"></i> All of this could be obsolete with HTTP/2</li>
+                    <li class="fragment"><i class="fa fa-exclamation-circle"
+                                            aria-hidden="true"
+                                            style="color:red; font-size:1em"></i>
+                        All of this could be obsolete with HTTP/2
+                    </li>
                 </ul>
 
             </section>
             <section class="hands-on">
                 <h2>Hands-on Google Chrome Dev Tools</h2>
                 <p><a>Chrome | ALT+CMD+I | F12</a></p>
-                <p>Check for http/2:<br/><a href="https://tools.keycdn.com/http2-test" target="_blank">https://tools.keycdn.com/http2-test</a></p>
+                <p>Check for http/2:<br/><a
+                        href="https://tools.keycdn.com/http2-test"
+                        target="_blank">https://tools.keycdn.com/http2-test</a>
+                </p>
             </section>
         </section>
         <section>
             <section class="overview">
                 <h2>Google PageSpeed Insights</h2>
                 <ul>
-                    <li class="fragment">Minification, Compression, Image Optimization</li>
+                    <li class="fragment">Minification, Compression, Image
+                        Optimization
+                    </li>
                     <li class="fragment">Below the Fold / Critical Path</li>
                     <li class="fragment hands-on">Hands-on</li>
                 </ul>
@@ -327,9 +388,13 @@ Esc: Escape from full-screen, or toggle overview
             <section>
                 <h2>Minification, Compression, Image Optimization</h2>
                 <ul>
-                    <li class="fragment">Less data needs a lesser amount of bandwidth.</li>
+                    <li class="fragment">Less data needs a lesser amount of
+                        bandwidth.
+                    </li>
                     <li class="fragment">CSS, HTML &amp; JS can be reduced.</li>
-                    <li class="fragment">Textual responses can always be compressed.</li>
+                    <li class="fragment">Textual responses can always be
+                        compressed.
+                    </li>
                     <li class="fragment">Images can be optimized.</li>
                     <li class="fragment"><a
                             href="https://developers.google.com/speed/pagespeed/insights/?url=www.spiegel.de"
@@ -347,17 +412,23 @@ Esc: Escape from full-screen, or toggle overview
                 <img src="assets/criticalpath.png" width="100%"
                      title="http://calendar.perfplanet.com/2012/deciphering-the-critical-rendering-path">
                 <ul>
-                    <li class="fragment">Before the browser can render the page, it must construct the DOM and the CSSOM.
+                    <li class="fragment">Before the browser can render the page,
+                        it must construct the DOM and the CSSOM.
                     </li>
-                    <li class="fragment">DOM and CSSOM may be modified by JavaScript</li>
-                    <li class="fragment">Therefore, unnecessary scripts and styles should be loaded asnychronically.
+                    <li class="fragment">DOM and CSSOM may be modified by
+                        JavaScript
+                    </li>
+                    <li class="fragment">Therefore, unnecessary scripts and
+                        styles should be loaded asnychronically.
                     </li>
                 </ul>
             </section>
             <section>
                 <h2>Below the Fold / Critical Path</h2>
                 <ul>
-                    <li class="fragment">The webserver should only serve the initially needed content. Everything else: later!</li>
+                    <li class="fragment">The webserver should only serve the
+                        initially needed content. Everything else: later!
+                    </li>
                     <li class="fragment"><a
                             href="https://developers.google.com/speed/pagespeed/insights/?url=www.spiegel.de"
                             target="_blank">Spiegel.de</a></li>
@@ -375,7 +446,8 @@ Esc: Escape from full-screen, or toggle overview
             </section>
             <section class="hands-on">
                 <h2>Hands-on Google PageSpeed Insights</h2>
-                <a href="https://developers.google.com/speed/pagespeed/insights/" target="_blank">https://developers.google.com/speed/pagespeed/insights/</a>
+                <a href="https://developers.google.com/speed/pagespeed/insights/"
+                   target="_blank">https://developers.google.com/speed/pagespeed/insights/</a>
             </section>
         </section>
         <section>
@@ -404,7 +476,8 @@ Esc: Escape from full-screen, or toggle overview
                     <li class="fragment">Strategy 1: Avoid requests!</li>
                     <li class="fragment">
                         With URL fingerprinting
-                        <pre><code contenteditable data-trim class="nohighlight">
+                        <pre><code contenteditable data-trim
+                                   class="nohighlight">
                             http://static.bla.de/js/main.min.28101047.js
                         </code></pre>
                         <pre><code contenteditable data-trim class="http">
@@ -414,7 +487,8 @@ expires: Wed, 02 Nov 2016 15:49:00 GMT
                     </li>
                     <li class="fragment">
                         Without URL fingerprinting
-                        <pre><code contenteditable data-trim class="nohighlight">
+                        <pre><code contenteditable data-trim
+                                   class="nohighlight">
 http://bla.de/app/config.json
 http://bla.de/views/footer.html
                         </code></pre>
@@ -423,7 +497,9 @@ cache-control: public, max-age=86400
 expires: Wed, 11 Nov 2015 14:55:34 GMT
                         </code></pre>
                     </li>
-                    <li class="fragment">Should be used for all static esources.</li>
+                    <li class="fragment">Should be used for all static
+                        esources.
+                    </li>
                 </ul>
             </section>
             <section>
@@ -452,27 +528,39 @@ HTTP/1.1 304 Not Modified
                     </li>
                     <li class="fragment">All dynamic resources</li>
                     <li class="fragment">Example:
-                        <a href="https://www.webpagetest.org/result/161014_V0_CS7/" target="_blank">Spiegel</a>
+                        <a href="https://www.webpagetest.org/result/161014_V0_CS7/"
+                           target="_blank">Spiegel</a>
                     </li>
                 </ul>
                 <aside class="notes">
-                    WebPageTest: First View vs. Repeat View, "Performance Review", einzelne Header anschauen
+                    WebPageTest: First View vs. Repeat View, "Performance
+                    Review", einzelne Header anschauen
                 </aside>
             </section>
             <section>
                 <h2>Domain Sharding (HTTP/1.1)</h2>
                 <ul>
                     <li class="fragment">Use the whole bandwidth!</li>
-                    <li class="fragment">Trade-Off: <br/> DNS Lookup, TCP Connect, <br/> SSL Handshake, Slow-Start</li>
+                    <li class="fragment">Trade-Off: <br/> DNS Lookup, TCP
+                        Connect, <br/> SSL Handshake, Slow-Start
+                    </li>
                     <li class="fragment">No Cookies!</li>
                     <li class="fragment">For all static resources</li>
                     <li class="fragment">Examples:
-                        <a href="https://www.webpagetest.org/result/161014_V0_CS7/" target="_blank">Spiegel</a>,
-                        <a href="https://www.webpagetest.org/result/161014_6E_CWE/" target="_blank">St. Pauli</a>,
-                        <a href="https://www.webpagetest.org/result/161014_C5_CY9/" target="_blank">HSV News</a>,
-                        <a href="https://www.webpagetest.org/result/161014_VQ_D08/" target="_blank">Huffington Post</a><br/><br/>
+                        <a href="https://www.webpagetest.org/result/161014_V0_CS7/"
+                           target="_blank">Spiegel</a>,
+                        <a href="https://www.webpagetest.org/result/161014_6E_CWE/"
+                           target="_blank">St. Pauli</a>,
+                        <a href="https://www.webpagetest.org/result/161014_C5_CY9/"
+                           target="_blank">HSV News</a>,
+                        <a href="https://www.webpagetest.org/result/161014_VQ_D08/"
+                           target="_blank">Huffington Post</a><br/><br/>
                     </li>
-                    <li class="fragment"><i class="fa fa-exclamation-circle" aria-hidden="true" style="color:red; font-size:1em"></i> All of this could be obsolete with HTTP/2</li>
+                    <li class="fragment"><i class="fa fa-exclamation-circle"
+                                            aria-hidden="true"
+                                            style="color:red; font-size:1em"></i>
+                        All of this could be obsolete with HTTP/2
+                    </li>
                 </ul>
                 <aside class="notes">
                     WebPageTest: Domains and Content Breakdown (Connection View)
@@ -482,8 +570,13 @@ HTTP/1.1 304 Not Modified
                 <h2>Content Delivery Networks</h2>
                 <ul>
                     <li class="fragment">Less latency!</li>
-                    <li class="fragment">Makes sense for sites with a global audience.</li>
-                    <li class="fragment">A light-beam needs &Tilde;50ms to pass the flight distance between NYC and Singapore (15,339km).</li>
+                    <li class="fragment">Makes sense for sites with a global
+                        audience.
+                    </li>
+                    <li class="fragment">A light-beam needs &Tilde;50ms to pass
+                        the flight distance between NYC and Singapore
+                        (15,339km).
+                    </li>
                 </ul>
             </section>
             <section>
@@ -503,21 +596,34 @@ HTTP/1.1 304 Not Modified
             <section class="outlook">
                 <h2>HTTP/2</h2>
                 <ul>
-                    <li class="fragment">Multiplexed Streams: Connection sharing </li>
-                    <li class="fragment">Only one handshake (SSL/TLS) for every connection</li>
-                    <li class="fragment">Domain Sharding, Concatenation, Image Spriting etc. become obsolete
+                    <li class="fragment">Multiplexed Streams: Connection
+                        sharing
                     </li>
-                    <li class="fragment">Server Push: send assets (wie JS and CSS) proactively</li>
-                    <li class="fragment">Header Compression: send protocol headers as one compressed block
+                    <li class="fragment">Only one handshake (SSL/TLS) for every
+                        connection
                     </li>
-                    <li class="fragment">Binary protocol: less code, easier parsing</li>
-                    <li class="fragment">Example: <a href="http://http2.golang.org/gophertiles?latency=30" target="_blank">A grid of
+                    <li class="fragment">Domain Sharding, Concatenation, Image
+                        Spriting etc. become obsolete
+                    </li>
+                    <li class="fragment">Server Push: send assets (wie JS and
+                        CSS) proactively
+                    </li>
+                    <li class="fragment">Header Compression: send protocol
+                        headers as one compressed block
+                    </li>
+                    <li class="fragment">Binary protocol: less code, easier
+                        parsing
+                    </li>
+                    <li class="fragment">Example: <a
+                            href="http://http2.golang.org/gophertiles?latency=30"
+                            target="_blank">A grid of
                         180 tiled images</a>
                     </li>
                     </li>
                 </ul>
             </section>
-            <section fullscreen-img="assets/http_sequence.jpg" fullscreen-size="contain">
+            <section fullscreen-img="assets/http_sequence.jpg"
+                     fullscreen-size="contain">
 
             </section>
             <section class="qna">
@@ -528,9 +634,13 @@ HTTP/1.1 304 Not Modified
             </section>
             <section>
                 <h2>Thank you!</h2>
-                <p><i class="fa fa-slideshare" aria-hidden="true" style="font-size: 4em"></i></p>
+                <p><i class="fa fa-slideshare" aria-hidden="true"
+                      style="font-size: 4em"></i></p>
                 <p>Slides are available at:</p>
-                <p><a href="https://github.com/janweinschenker/google-dev-fest-2016" target="_blank">https://github.com/janweinschenker/google-dev-fest-2016</a></p>
+                <p>
+                    <a href="https://github.com/janweinschenker/google-dev-fest-2016"
+                       target="_blank">https://github.com/janweinschenker/google-dev-fest-2016</a>
+                </p>
             </section>
         </section>
     </div>
@@ -608,37 +718,46 @@ HTTP/1.1 304 Not Modified
         // Optional libraries used to extend on reveal.js
         dependencies: [
             {
-                src: 'bower_components/reveal.js/lib/js/classList.js', condition: function () {
-                return !document.body.classList;
-            }
+                src: 'bower_components/reveal.js/lib/js/classList.js',
+                condition: function () {
+                    return !document.body.classList;
+                }
             },
             {
-                src: 'bower_components/reveal.js/plugin/markdown/marked.js', condition: function () {
-                return !!document.querySelector('[data-markdown]');
-            }
+                src: 'bower_components/reveal.js/plugin/markdown/marked.js',
+                condition: function () {
+                    return !!document.querySelector('[data-markdown]');
+                }
             },
             {
-                src: 'bower_components/reveal.js/plugin/markdown/markdown.js', condition: function () {
-                return !!document.querySelector('[data-markdown]');
-            }
+                src: 'bower_components/reveal.js/plugin/markdown/markdown.js',
+                condition: function () {
+                    return !!document.querySelector('[data-markdown]');
+                }
             },
             {
-                src: 'bower_components/reveal.js/plugin/highlight/highlight.js', async: true, callback: function () {
-                hljs.initHighlightingOnLoad();
-            }
+                src: 'bower_components/reveal.js/plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
             },
             {
-                src: 'bower_components/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function () {
-                return !!document.body.classList;
-            }
+                src: 'bower_components/reveal.js/plugin/zoom-js/zoom.js',
+                async: true,
+                condition: function () {
+                    return !!document.body.classList;
+                }
             },
             {
-                src: 'bower_components/reveal.js/plugin/notes/notes.js', async: true, condition: function () {
-                return !!document.body.classList;
-            }
+                src: 'bower_components/reveal.js/plugin/notes/notes.js',
+                async: true,
+                condition: function () {
+                    return !!document.body.classList;
+                }
             },
             {
-                src:'bower_components/reveal.js/lib/js/fullscreen-img.js'
+                src: 'bower_components/reveal.js/lib/js/fullscreen-img.js'
             }
             //{ src: 'bower_components/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } },
             //{ src: 'bower_components/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
