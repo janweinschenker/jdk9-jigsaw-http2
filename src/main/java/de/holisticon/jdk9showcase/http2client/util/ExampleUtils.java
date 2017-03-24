@@ -6,6 +6,7 @@ package de.holisticon.jdk9showcase.http2client.util;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Duration;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,34 +16,58 @@ import jdk.incubator.http.HttpRequest;
 import jdk.incubator.http.HttpResponse;
 
 /**
- * @author janweinschenker
+ * This class contains some utilities to create http clients and requests.
  *
+ *
+ * @author janweinschenker
  */
 public class ExampleUtils {
 
 	private static final Logger LOG = Logger.getLogger(ExampleUtils.class.getName());
 
+	private ExampleUtils(){
+
+    }
+
+    /**
+     * Create an http client for the specified version of the http protocol.
+     *
+     * @param version
+     * @return
+     */
 	public static HttpClient createHttpClient(Version version) {
 		HttpClient client = HttpClient
 				.newBuilder()
 				.version(version)
 				.followRedirects(HttpClient.Redirect.ALWAYS)
+				.executor(Executors.newFixedThreadPool(4))
 				.build();
 		return client;
 	}
 
-	public static HttpRequest createHttpRequest(URI uri) {
+    /**
+     * Create an http request for the given URI and http protocol version.
+     * @param uri
+     * @param version
+     * @return
+     */
+	public static HttpRequest createHttpRequest(URI uri, Version version) {
 		return HttpRequest.newBuilder(uri)
-				.version(Version.HTTP_2)
-				.timeout(Duration.ofSeconds(2))
+				.version(version)
 				.GET()
 				.build();
 	}
 
-	public static HttpRequest createHttpRequest(String uriString) {
+    /**
+     * Create an http request for the given URI and http protocol version.
+     * @param uri
+     * @param version
+     * @return
+     */
+    public static HttpRequest createHttpRequest(String uriString, Version version) {
 		try {
 			URI uri = new URI(uriString);
-			return createHttpRequest(uri);
+			return createHttpRequest(uri, version);
 		} catch (URISyntaxException e) {
 			LOG.log(Level.SEVERE, "URISyntaxException", e);
 		}

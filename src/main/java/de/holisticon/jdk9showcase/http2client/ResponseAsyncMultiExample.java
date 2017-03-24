@@ -1,16 +1,5 @@
 package de.holisticon.jdk9showcase.http2client;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import de.holisticon.jdk9showcase.http2client.util.ExampleUtils;
 import jdk.incubator.http.HttpClient;
 import jdk.incubator.http.HttpClient.Version;
@@ -19,6 +8,16 @@ import jdk.incubator.http.HttpResponse;
 import jdk.incubator.http.HttpResponse.BodyHandler;
 import jdk.incubator.http.HttpResponse.MultiProcessor;
 import jdk.incubator.http.MultiMapResult;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 
@@ -35,40 +34,47 @@ public class ResponseAsyncMultiExample {
 	public static void main(String[] args) {
 
 		try {
-			startRequest();
+			// URI uri = new URI("https://www.google.de/");
+			// URI uri = new URI("https://www.smashingmagazine.com/");
+			// URI uri = new URI("https://de.wikipedia.org/");
+			// URI uri = new URI("https://localhost:8443/greeting?name=Javaland");
+			// URI uri = new URI("https://blog.cloudflare.com/");
+			// URI uri = new URI("https://www.example.com/#/");
+			LOG.log(Level.INFO, "");
+			LOG.log(Level.INFO, "");
+			LOG.log(Level.INFO, "##################################################");
+			LOG.log(Level.INFO, "The following resources were pushed by the server:");
+			ResponseAsyncMultiExample example = new ResponseAsyncMultiExample();
+			example.startRequest();
 
 		} catch (URISyntaxException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * @see MultiProcessor#asMap(java.util.function.Function)
+	 * @throws URISyntaxException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
 	private static void startRequest() throws URISyntaxException, InterruptedException, ExecutionException {
-		// URI uri = new URI("https://www.google.de/");
-		// URI uri = new URI("https://www.smashingmagazine.com/");
-		// URI uri = new URI("https://de.wikipedia.org/");
-		// URI uri = new URI("https://localhost:8443/greeting?name=Javaland");
-		// URI uri = new URI("https://blog.cloudflare.com/");
-		// URI uri = new URI("https://www.example.com/#/");
-		LOG.log(Level.INFO, "");
-		LOG.log(Level.INFO, "");
-		LOG.log(Level.INFO, "##################################################");
-		LOG.log(Level.INFO, "The following resources were pushed by the server:");
-		
-		
+
 		URI uri = new URI("https://blog.cloudflare.com/announcing-support-for-http-2-server-push-2/");
-		HttpRequest request = ExampleUtils.createHttpRequest(uri);
+		HttpRequest request = ExampleUtils.createHttpRequest(uri, Version.HTTP_2);
 		HttpClient client = ExampleUtils.createHttpClient(Version.HTTP_2);
-		
-		MultiMapResult<String> multiMapResult = client.sendAsync(request, MultiProcessor.asMap((req) -> {
-					Optional<BodyHandler<String>> optional = Optional.of(HttpResponse.BodyHandler.asString());
-					//if (optional.isPresent()) {
-					LOG.log(Level.INFO, " - " + req.uri());
-					//}
-					return optional;
-				}, false))
-				
-				.orTimeout(2, TimeUnit.SECONDS)
-				.join();
+
+		CompletableFuture<MultiMapResult<String>> sendAsync = client.sendAsync(request, MultiProcessor.asMap((req) -> {
+			Optional<BodyHandler<String>> optional = Optional.of(HttpResponse.BodyHandler.asString());
+			String msg = " - " + req.uri();
+			LOG.log(Level.INFO, msg);
+			return optional;
+		}, true)).orTimeout(2, TimeUnit.SECONDS);
+
+		int numberOfDependents = sendAsync.getNumberOfDependents();
+		LOG.log(Level.INFO, "Number of dependents: " + numberOfDependents);
+
+		Map<HttpRequest, CompletableFuture<HttpResponse<String>>> multiMapResult = sendAsync.join();
 
 		if (multiMapResult != null) {
 			for (HttpRequest key : multiMapResult.keySet()) {
@@ -79,8 +85,4 @@ public class ResponseAsyncMultiExample {
 		}
 	}
 
-	public static Path getDownloadPath(URI target) {
-		return Paths.get("downloads", ResponseAsyncMultiExample.class.getSimpleName(), target.getHost(),
-				target.getHost(), target.getPath());
-	}
 }

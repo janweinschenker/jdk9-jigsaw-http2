@@ -74,7 +74,7 @@
 						<configuration>
 							<executable>${java.9.executable}</executable>
 							<arguments>
-								<argument>-Xmx2048m</argument>
+								<argument>-Xmx4096m</argument>
 								<argument>${java.logging.format}</argument>
 								<argument>-classpath</argument>
 								<classpath />

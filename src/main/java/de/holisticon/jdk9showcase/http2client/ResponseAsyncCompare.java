@@ -1,5 +1,6 @@
 package de.holisticon.jdk9showcase.http2client;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Duration;
@@ -30,42 +31,44 @@ public class ResponseAsyncCompare {
 	public static void main(String[] args) {
 
 		try {
-			startRequest(args);
+            ResponseAsyncCompare compare = new ResponseAsyncCompare();
+			compare.startRequest(args);
 		} catch (URISyntaxException e) {
 			LOG.log(Level.SEVERE, "URISyntaxException", e);
 		} catch (InterruptedException e) {
 			LOG.log(Level.SEVERE, "InterruptedException", e);
 		} catch (ExecutionException e) {
 			LOG.log(Level.SEVERE, "ExecutionException", e);
+		} catch (IOException e) {
+			LOG.log(Level.SEVERE, "IOException", e);
 		}
 
 	}
 
-	private static void startRequest(String[] args)
-			throws URISyntaxException, InterruptedException, ExecutionException {
+	private void startRequest(String[] args)
+			throws URISyntaxException, InterruptedException, ExecutionException, IOException {
 		Version httpVersion = Version.valueOf(args[0]);
-		String port = Version.HTTP_2.equals(httpVersion) ? "8443" : "8080";
-		URI uri = new URI("https://localhost:" + port + "/greeting?name=JavaLand");
+        URI uri = getUri(httpVersion);
 
 		Date start = new Date();
 		HttpClient client = ExampleUtils.createHttpClient(httpVersion);
 		Version responseVersion = Version.HTTP_1_1;
+
 		for (int i = 0; i < Integer.valueOf(args[1]); i++) {
-			Builder newBuilder = HttpRequest.newBuilder();
-			HttpRequest request = newBuilder.uri(uri).version(httpVersion).GET()
-					// .DELETE()
-					// .POST(body)
-					// .PUT(body)
-					// .timeout(Duration.ofSeconds(30))
-					// .expectContinue(true)
-					.timeout(Duration.ofSeconds(1)).build();
-			HttpResponse<String> httpResponse = client.sendAsync(request, HttpResponse.BodyHandler.asString()).get();
+			HttpRequest request = ExampleUtils.createHttpRequest(uri, httpVersion);
+			HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandler.asString());
 			responseVersion = httpResponse.version();
 		}
+
 		Date end = new Date();
 		long diff = end.getTime() - start.getTime();
 		LOG.log(Level.INFO,"Milliseconds: " + diff);
 		LOG.log(Level.INFO,"Response HTTP version: " + responseVersion.toString());
 	}
+
+    private URI getUri(Version httpVersion) throws URISyntaxException {
+        String port = Version.HTTP_2.equals(httpVersion) ? "8443" : "8080";
+        return new URI("https://localhost:" + port + "/greeting?name=JavaLand");
+    }
 
 }

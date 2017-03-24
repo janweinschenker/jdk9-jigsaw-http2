@@ -17,6 +17,8 @@ public class CancelClientExample {
 
 	private static final Logger LOG = Logger.getLogger(CancelClientExample.class.getName());
 
+	public static final Version VERSION = Version.HTTP_2;
+
 	public static void main(String[] args) {
 		CancelClientExample clientExample = new CancelClientExample();
 		try {
@@ -30,8 +32,8 @@ public class CancelClientExample {
 	}
 
 	public String send() throws InterruptedException, ExecutionException, URISyntaxException {
-		HttpClient client = ExampleUtils.createHttpClient(Version.HTTP_2);
-		HttpRequest request = ExampleUtils.createHttpRequest("http://www.holisticon.de");
+		HttpClient client = ExampleUtils.createHttpClient(VERSION);
+		HttpRequest request = ExampleUtils.createHttpRequest("http://www.holisticon.de", Version.HTTP_2);
 		CompletableFuture<String> future = client.sendAsync(request, BodyHandler.asString()).thenApply(response -> response.body());
 
 		Thread.sleep(10);

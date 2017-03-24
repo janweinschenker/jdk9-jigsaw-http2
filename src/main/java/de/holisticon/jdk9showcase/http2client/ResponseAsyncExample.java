@@ -23,11 +23,15 @@ import jdk.incubator.http.HttpResponse;
 public class ResponseAsyncExample {
 
 	private static final Logger LOG = Logger.getLogger(ResponseAsyncExample.class.getName());
+	public static final Version VERSION = Version.HTTP_2;
 
 	public static void main(String[] args) {
 
 		try {
-			startRequest();
+			LOG.log(Level.INFO, "##################################################");
+			LOG.log(Level.INFO, "");
+			ResponseAsyncExample example = new ResponseAsyncExample();
+			example.startRequest();
 		} catch (URISyntaxException e) {
 			LOG.log(Level.SEVERE, "URISyntaxException", e);
 		} catch (InterruptedException e) {
@@ -38,23 +42,13 @@ public class ResponseAsyncExample {
 
 	}
 
-	private static void startRequest() throws URISyntaxException, InterruptedException, ExecutionException {
-		HttpClient client = ExampleUtils.createHttpClient(Version.HTTP_2);
+	private void startRequest() throws URISyntaxException, InterruptedException, ExecutionException {
+
 		URI uri = new URI("https://localhost:8443/greeting?name=JavaLand");
-		// URI uri = new URI("https://www.example.com/#/");
-
-		LOG.log(Level.INFO, "##################################################");
-		LOG.log(Level.INFO, "");
-		LOG.log(Level.INFO, "Sending request to: " + uri.toString());
-		
-		HttpRequest request = HttpRequest.newBuilder().uri(uri).version(HttpClient.Version.HTTP_2).GET()
-				// .DELETE()
-				// .POST(body)
-				// .PUT(body)
-				// .timeout(Duration.ofSeconds(30))
-				// .expectContinue(true)
-				.build();
-
+		String msg = "Sending request to: " + uri.toString();
+		LOG.log(Level.INFO, msg);
+		HttpClient client = ExampleUtils.createHttpClient(VERSION);
+		HttpRequest request = ExampleUtils.createHttpRequest(uri, VERSION);
 		HttpResponse<String> response = client.sendAsync(request, HttpResponse.BodyHandler.asString()).get();
 
 		ExampleUtils.printResponse(response);
