@@ -8,9 +8,7 @@ import jdk.incubator.http.HttpResponse;
 import jdk.incubator.http.HttpResponse.BodyHandler;
 
 import java.net.URISyntaxException;
-import java.util.concurrent.CancellationException;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,9 +30,10 @@ public class CancelClientExample {
             clientExample.send();
 
 
-        } catch (InterruptedException | ExecutionException | URISyntaxException e) {
+        } catch (InterruptedException | ExecutionException |
+                URISyntaxException  e) {
             LOG.log(Level.INFO, e.getClass().getSimpleName());
-        } catch (CancellationException e) {
+        } catch (CancellationException | TimeoutException e) {
             LOG.log(Level.INFO,
                     "The request has been cancelled: " + e.getClass()
                                                           .getSimpleName());
@@ -47,7 +46,7 @@ public class CancelClientExample {
     }
 
     public String send() throws InterruptedException, ExecutionException,
-            URISyntaxException {
+            URISyntaxException, TimeoutException {
         HttpClient client = ExampleUtils.createHttpClient(VERSION);
         HttpRequest request = ExampleUtils
                 .createHttpRequest("http://www.holisticon.de", Version.HTTP_2);
@@ -56,17 +55,17 @@ public class CancelClientExample {
                 .thenApply(HttpResponse::body);
 
 
-        //future.get(10, TimeUnit.MILLISECONDS);
+        String response;
+        response = future.get(10, TimeUnit.MILLISECONDS);
 
         Thread.sleep(10);
-        String response;
         if (!future.isDone()) {
-            future.cancel(true);
+            //future.cancel(true);
             LOG.info("Sorry, timeout!");
         } else {
             LOG.info("Request finished without timeout.");
         }
-        response = future.get();
+        //response = future.get();
         LOG.info("Response: " + response);
         return response;
     }

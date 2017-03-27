@@ -71,7 +71,7 @@ public class ResponseAsyncMultiExample {
                     String msg = " - " + req.uri();
                     LOG.log(Level.INFO, msg);
                     return optional;
-                }, true)).orTimeout(2, TimeUnit.SECONDS);
+                }, true)).orTimeout(30, TimeUnit.SECONDS);
 
         int numberOfDependents = sendAsync.getNumberOfDependents();
         LOG.log(Level.INFO, "Number of dependents: " + numberOfDependents);
@@ -87,6 +87,7 @@ public class ResponseAsyncMultiExample {
                 ExampleUtils.printResponse(response);
             }
         }
+        System.exit(0);
     }
 
 }
