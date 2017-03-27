@@ -63,9 +63,11 @@ public class ResponseAsyncCompare {
 
         Date end = new Date();
         long diff = end.getTime() - start.getTime();
-        LOG.log(Level.INFO, "Milliseconds: " + diff);
+        LOG.log(Level.INFO, "");
+                LOG.log(Level.INFO, "Milliseconds: " + diff);
         LOG.log(Level.INFO,
                 "Response HTTP version: " + responseVersion.toString());
+        LOG.log(Level.INFO, "");
     }
 
     private URI getUri(Version httpVersion) throws URISyntaxException {
