@@ -54,13 +54,12 @@ public class CancelClientExample {
                 .sendAsync(request, BodyHandler.asString())
                 .thenApply(HttpResponse::body);
 
-
         String response;
         response = future.get(10, TimeUnit.MILLISECONDS);
 
         Thread.sleep(10);
         if (!future.isDone()) {
-            //future.cancel(true);
+            future.cancel(true);
             LOG.info("Sorry, timeout!");
         } else {
             LOG.info("Request finished without timeout.");
