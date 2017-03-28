@@ -89,8 +89,7 @@ The client will initiate an HTTP GET request and will cancel it after 10 millise
 1. There is also a bash script that starts this maven target
   1. `./script/run_cancel.sh`
 
-### <a name="ResponseAsyncCompare"></a> 2.4 Run multiple requests with HTTP/1.1 
-or HTTP/2.0 
+### <a name="ResponseAsyncCompare"></a> 2.4 Run multiple requests with HTTP/1.1 or HTTP/2.0 
 
 This example is implemented in [ResponseAsyncCompare.java](
 ./src/main/java/de/holisticon/jdk9showcase/http2client/ResponseAsyncExample.java).
