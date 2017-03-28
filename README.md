@@ -92,7 +92,8 @@ The client will initiate an HTTP GET request and will cancel it after 10 millise
 This example is implemented in [ResponseAsyncCompare.java](
 ./src/main/java/de/holisticon/jdk9showcase/http2client/ResponseAsyncExample.java).
 
-The client will initiate an HTTP GET request and will cancel it after 10 milliseconds. 
+The client will run a number of requests against a server. At the end, it 
+will display, how many milliseconds were needed to complete this task. 
 
 1. If not done already, compile the sources 
   1. `$> mvn clean:clean package`
