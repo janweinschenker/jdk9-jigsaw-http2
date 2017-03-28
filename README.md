@@ -89,7 +89,8 @@ The client will initiate an HTTP GET request and will cancel it after 10 millise
 1. There is also a bash script that starts this maven target
   1. `./script/run_cancel.sh`
 
-### <a name="ResponseAsyncCompare"></a> Run multiple requests with HTTP/1.1 or HTTP/2.0 
+### <a name="ResponseAsyncCompare"></a> 2.4 Run multiple requests with HTTP/1.1 
+or HTTP/2.0 
 
 This example is implemented in [ResponseAsyncCompare.java](
 ./src/main/java/de/holisticon/jdk9showcase/http2client/ResponseAsyncExample.java).
@@ -105,7 +106,7 @@ will display, how many milliseconds were needed to complete this task.
   1. run 2000 HTTP1.1 requests: `./script/run_compare.sh HTTP1_1 2000`
   1. run 2000 HTTP2 requests: `./script/run_compare.sh HTTP2 2000`
   
-### <a name="Clean"></a> 2.4 Clean the target and downloads folder
+### <a name="Clean"></a> 2.5 Clean the target and downloads folder
 
 Call `$> mvn clean:clean`.
 
