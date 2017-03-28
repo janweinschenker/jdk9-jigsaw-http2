@@ -56,6 +56,8 @@ This example is implemented in [ResponseAsyncExample.java](
   1. `$> mvn clean:clean package`
 1. Execute the example code with maven by using the correct profile.
   1. `$> mvn exec:exec -PResponseAsyncExample`
+1. There is also a bash script that starts this maven target
+  1. `./script/run_single.sh`
 
 
 ### <a name="ResponseAsyncMulti"></a> 2.2 Fetching a list of target URIs asynchronously with multi response
@@ -69,7 +71,8 @@ The client will download an HTML file from the server. If the server pushes any 
   1. `$> mvn clean:clean package`
 1. Execute the example code with maven by using the correct profile.
   1. `$> mvn exec:exec -PResponseAsyncMultiExample`
-
+1. There is also a bash script that starts this maven target
+  1. `./script/run_multi.sh`
 
 ### <a name="CancelClient"></a> 2.3 Cancel an HTTP request
 
@@ -81,8 +84,23 @@ The client will initiate an HTTP GET request and will cancel it after 10 millise
 1. If not done already, compile the sources 
   1. `$> mvn clean:clean package`
 1. Execute the example code with maven by using the correct profile.
+1. There is also a bash script that starts this maven target
+  1. `./script/run_cancel.sh`
 
+### <a name="CancelClient"></a> Run multiple requests with HTTP/1.1 or HTTP/2.0 
 
+This example is implemented in [ResponseAsyncCompare.java](
+./src/main/java/de/holisticon/jdk9showcase/http2client/ResponseAsyncExample.java).
+
+The client will initiate an HTTP GET request and will cancel it after 10 milliseconds. 
+
+1. If not done already, compile the sources 
+  1. `$> mvn clean:clean package`
+1. Execute the example code with maven by using the correct profile.
+1. There is also a bash script that starts this maven target
+  1. run 2000 HTTP1.1 requests: `./script/run_compare.sh HTTP1_1 2000`
+  1. run 2000 HTTP2 requests: `./script/run_compare.sh HTTP2 2000`
+  
 ### <a name="Clean"></a> 2.4 Clean the target and downloads folder
 
 Call `$> mvn clean:clean`.
