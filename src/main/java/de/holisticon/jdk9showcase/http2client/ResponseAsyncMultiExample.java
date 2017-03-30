@@ -65,27 +65,27 @@ public class ResponseAsyncMultiExample {
         HttpClient client = ExampleUtils.createHttpClient(Version.HTTP_2);
 
         CompletableFuture<MultiMapResult<String>> sendAsync = client
-
                 .sendAsync(request, MultiProcessor.asMap((req) -> {
-
                     Optional<BodyHandler<String>> optional = Optional
-                            .of(HttpResponse.BodyHandler.asString());
+                            .of(BodyHandler.asString());
                     String msg = " - " + req.uri();
                     LOG.log(Level.INFO, msg);
                     return optional;
-                })).orTimeout(30, TimeUnit.SECONDS);
+                }))
+                .orTimeout(30, TimeUnit.SECONDS);
 
-        int numberOfDependents = sendAsync.getNumberOfDependents();
-        LOG.log(Level.INFO, "Number of dependents: " + numberOfDependents);
 
-        Map<HttpRequest, CompletableFuture<HttpResponse<String>>> multiMapResult = sendAsync
+        Map<HttpRequest, CompletableFuture<HttpResponse<String>>>
+                multiMapResult = sendAsync
                 .join();
-        LOG.log(Level.INFO, "multiMapResult: " + multiMapResult.entrySet().size());
+        LOG.log(Level.INFO,
+                "multiMapResult: " + multiMapResult.entrySet().size());
 
         if (multiMapResult != null) {
             for (HttpRequest key : multiMapResult.keySet()) {
-                CompletableFuture<HttpResponse<String>> completableFuture = multiMapResult
-                        .get(key);
+                CompletableFuture<HttpResponse<String>> completableFuture =
+                        multiMapResult
+                                .get(key);
                 HttpResponse<String> response = completableFuture.get();
                 ExampleUtils.printResponse(response);
             }

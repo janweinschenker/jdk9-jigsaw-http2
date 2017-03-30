@@ -47,25 +47,17 @@ public class CancelClientExample {
 
     public String send() throws InterruptedException, ExecutionException,
             URISyntaxException, TimeoutException {
+
         HttpClient client = ExampleUtils.createHttpClient(VERSION);
         HttpRequest request = ExampleUtils
                 .createHttpRequest("http://www.holisticon.de", Version.HTTP_2);
+
         CompletableFuture<String> future = client
                 .sendAsync(request, BodyHandler.asString())
                 .thenApply(HttpResponse::body);
 
-        String response;
-        response = future.get(10, TimeUnit.MILLISECONDS);
+        String response = future.get(10, TimeUnit.MILLISECONDS);
 
-        Thread.sleep(10);
-        if (!future.isDone()) {
-            future.cancel(true);
-            LOG.info("Sorry, timeout!");
-        } else {
-            LOG.info("Request finished without timeout.");
-        }
-        //response = future.get();
-        LOG.info("Response: " + response);
         return response;
     }
 }

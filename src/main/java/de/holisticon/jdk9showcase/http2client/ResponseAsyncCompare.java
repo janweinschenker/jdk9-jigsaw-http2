@@ -51,6 +51,7 @@ public class ResponseAsyncCompare {
         Date start = new Date();
         HttpClient client = ExampleUtils.createHttpClient(httpVersion);
         Version responseVersion = Version.HTTP_1_1;
+
         LOG.log(Level.INFO, "URI: " + uri.toString());
 
         for (int i = 0; i < Integer.valueOf(args[1]); i++) {

@@ -48,8 +48,11 @@ public class ResponseAsyncExample {
         URI uri = new URI("https://localhost:8443/greeting?name=JavaLand");
         String msg = "Sending request to: " + uri.toString();
         LOG.log(Level.INFO, msg);
-        HttpClient client = ExampleUtils.createHttpClient(VERSION);
+
+        HttpClient client = ExampleUtils
+                .createHttpClient(VERSION);
         HttpRequest request = ExampleUtils.createHttpRequest(uri, VERSION);
+
         HttpResponse<String> response = client
                 .sendAsync(request, HttpResponse.BodyHandler.asString()).get();
 
