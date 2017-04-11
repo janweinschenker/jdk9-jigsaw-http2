@@ -14,50 +14,50 @@ import java.util.logging.Logger;
 
 public class CancelClientExample {
 
-    private static final Logger LOG = Logger
-            .getLogger(CancelClientExample.class.getName());
+  private static final Logger LOG = Logger
+      .getLogger(CancelClientExample.class.getName());
 
-    private static final Version VERSION = Version.HTTP_2;
+  private static final Version VERSION = Version.HTTP_2;
 
-    public static void main(String[] args) {
-        CancelClientExample clientExample = new CancelClientExample();
-        try {
-            LOG.log(Level.INFO, "");
-            LOG.log(Level.INFO, "");
-            LOG.log(Level.INFO,
-                    "##################################################");
+  public static void main(String[] args) {
+    CancelClientExample clientExample = new CancelClientExample();
+    try {
+      LOG.log(Level.INFO, "");
+      LOG.log(Level.INFO, "");
+      LOG.log(Level.INFO,
+          "##################################################");
 
-            clientExample.send();
+      clientExample.send();
 
 
-        } catch (InterruptedException | ExecutionException |
-                URISyntaxException  e) {
-            LOG.log(Level.INFO, e.getClass().getSimpleName());
-        } catch (CancellationException | TimeoutException e) {
-            LOG.log(Level.INFO,
-                    "The request has been cancelled: " + e.getClass()
-                                                          .getSimpleName());
-            LOG.log(Level.INFO, "");
-            LOG.log(Level.INFO, "");
-            LOG.log(Level.INFO,
-                    "##################################################");
-            System.exit(0);
-        }
+    } catch (InterruptedException | ExecutionException |
+        URISyntaxException e) {
+      LOG.log(Level.INFO, e.getClass().getSimpleName());
+    } catch (CancellationException | TimeoutException e) {
+      LOG.log(Level.INFO,
+          "The request has been cancelled: " + e.getClass()
+                                                .getSimpleName());
+      LOG.log(Level.INFO, "");
+      LOG.log(Level.INFO, "");
+      LOG.log(Level.INFO,
+          "##################################################");
+      System.exit(0);
     }
+  }
 
-    public String send() throws InterruptedException, ExecutionException,
-            URISyntaxException, TimeoutException {
+  public String send() throws InterruptedException, ExecutionException,
+      URISyntaxException, TimeoutException {
 
-        HttpClient client = ExampleUtils.createHttpClient(VERSION);
-        HttpRequest request = ExampleUtils
-                .createHttpRequest("http://www.holisticon.de", Version.HTTP_2);
+    HttpClient client = ExampleUtils.createHttpClient(VERSION);
+    HttpRequest request = ExampleUtils
+        .createHttpRequest("https://localhost:8443/greeting?name=JavaLand", Version.HTTP_2);
 
-        CompletableFuture<String> future = client
-                .sendAsync(request, BodyHandler.asString())
-                .thenApply(HttpResponse::body);
+    CompletableFuture<String> future = client
+        .sendAsync(request, BodyHandler.asString())
+        .thenApply(HttpResponse::body);
 
-        String response = future.get(10, TimeUnit.MILLISECONDS);
+    String response = future.get(10, TimeUnit.MILLISECONDS);
 
-        return response;
-    }
+    return response;
+  }
 }

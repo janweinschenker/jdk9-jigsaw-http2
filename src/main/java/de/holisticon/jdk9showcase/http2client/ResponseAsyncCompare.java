@@ -21,59 +21,59 @@ import java.util.logging.Logger;
  */
 public class ResponseAsyncCompare {
 
-    private static final Logger LOG = Logger
-            .getLogger(ResponseAsyncCompare.class.getName());
+  private static final Logger LOG = Logger
+      .getLogger(ResponseAsyncCompare.class.getName());
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
 
-        try {
-            ResponseAsyncCompare compare = new ResponseAsyncCompare();
-            compare.startRequest(args);
-            System.exit(0);
-        } catch (URISyntaxException e) {
-            LOG.log(Level.SEVERE, "URISyntaxException", e);
-        } catch (InterruptedException e) {
-            LOG.log(Level.SEVERE, "InterruptedException", e);
-        } catch (ExecutionException e) {
-            LOG.log(Level.SEVERE, "ExecutionException", e);
-        } catch (IOException e) {
-            LOG.log(Level.SEVERE, "IOException", e);
-        }
-
+    try {
+      ResponseAsyncCompare compare = new ResponseAsyncCompare();
+      compare.startRequest(args);
+      System.exit(0);
+    } catch (URISyntaxException e) {
+      LOG.log(Level.SEVERE, "URISyntaxException", e);
+    } catch (InterruptedException e) {
+      LOG.log(Level.SEVERE, "InterruptedException", e);
+    } catch (ExecutionException e) {
+      LOG.log(Level.SEVERE, "ExecutionException", e);
+    } catch (IOException e) {
+      LOG.log(Level.SEVERE, "IOException", e);
     }
 
-    private void startRequest(String[] args)
-            throws URISyntaxException, InterruptedException, ExecutionException,
-            IOException {
-        Version httpVersion = Version.valueOf(args[0]);
-        URI uri = getUri(httpVersion);
+  }
 
-        Date start = new Date();
-        HttpClient client = ExampleUtils.createHttpClient(httpVersion);
-        Version responseVersion = Version.HTTP_1_1;
+  private void startRequest(String[] args)
+      throws URISyntaxException, InterruptedException, ExecutionException,
+      IOException {
+    Version httpVersion = Version.valueOf(args[0]);
+    URI uri = getUri(httpVersion);
 
-        LOG.log(Level.INFO, "URI: " + uri.toString());
+    Date start = new Date();
+    HttpClient client = ExampleUtils.createHttpClient(httpVersion);
+    Version responseVersion = Version.HTTP_1_1;
 
-        for (int i = 0; i < Integer.valueOf(args[1]); i++) {
-            HttpRequest request = ExampleUtils
-                    .createHttpRequest(uri, httpVersion);
-            HttpResponse<String> httpResponse = client
-                    .send(request, HttpResponse.BodyHandler.asString());
-            responseVersion = httpResponse.version();
-        }
+    LOG.log(Level.INFO, "URI: " + uri.toString());
 
-        Date end = new Date();
-        long diff = end.getTime() - start.getTime();
-        LOG.log(Level.INFO, "");
-                LOG.log(Level.INFO, "Milliseconds: " + diff);
-        LOG.log(Level.INFO,
-                "Response HTTP version: " + responseVersion.toString());
-        LOG.log(Level.INFO, "");
+    for (int i = 0; i < Integer.valueOf(args[1]); i++) {
+      HttpRequest request = ExampleUtils
+          .createHttpRequest(uri, httpVersion);
+      HttpResponse<String> httpResponse = client
+          .send(request, HttpResponse.BodyHandler.asString());
+      responseVersion = httpResponse.version();
     }
 
-    private URI getUri(Version httpVersion) throws URISyntaxException {
-        String port = Version.HTTP_2.equals(httpVersion) ? "8443" : "8080";
-        return new URI("https://localhost:" + port + "/greeting?name=JavaLand");
-    }
+    Date end = new Date();
+    long diff = end.getTime() - start.getTime();
+    LOG.log(Level.INFO, "");
+    LOG.log(Level.INFO, "Milliseconds: " + diff);
+    LOG.log(Level.INFO,
+        "Response HTTP version: " + responseVersion.toString());
+    LOG.log(Level.INFO, "");
+  }
+
+  private URI getUri(Version httpVersion) throws URISyntaxException {
+    String port = Version.HTTP_2.equals(httpVersion) ? "8443" : "8080";
+    return new URI("https://localhost:" + port + "/greeting?name=JavaLand");
+  }
 
 }
