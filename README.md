@@ -33,16 +33,18 @@ There is currently an [Issue in IntelliJ 2016.3](https://youtrack.jetbrains.com/
 1. A working maven-toolchains-plugin configuration file ([~/.m2/toolchains.xml](http://maven.apache.org/plugins/maven-toolchains-plugin/toolchains/jdk.html))
 1. JDK 9 with Project Jigsaw
 1. Optional: An IDE with JDK9 support. 
-  1. [Eclipse Neon](http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/neonr) with its [Java 9 Support Plugin](https://marketplace.eclipse.org/content/java-9-support-beta-neon).
-  1. IntelliJ IDEA 2017.1 or newer
+   1. [Eclipse Neon](http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/neonr) with its [Java 9 Support Plugin](https://marketplace.eclipse.org/content/java-9-support-beta-neon).
+   1. IntelliJ IDEA 2017.1 or newer
 
 
 ### <a name="Setup"></a> 1.2 Setup and compile and compile instructions
 1. Clone this project to your local drive.
 1. [Download and install JDK 9 with Project Jigsaw](https://jdk9.java.net/jigsaw/)
+   - Set the environment variable JAVA_9_HOME
+   - JAVA_9_HOME is used in the script [import-server-cert.sh](./script/import-server-cert.sh)
 1. Add the home directory of the Jigsaw-JDK to your toolchains.xml. See the example file at [toolchain/toolchains.xml](./toolchain/toolchains.xml)
 1. In the project folder call `$> mvn clean:clean package`
-  1. Maven should use the JDK 9 `javac` compiler to compile the sources.
+   - Maven should use the JDK 9 `javac` compiler to compile the sources.
 1. The setup is complete, when `$> mvn clean:clean package` has build successfully.
 
 ## <a name="Running"></a> 2 Running the examples
@@ -54,11 +56,11 @@ The examples can be executed with the exec-maven-plugin.
 This example is implemented in [ResponseAsyncExample.java](
 ./src/main/java/de/holisticon/jdk9showcase/http2client/ResponseAsyncExample.java)
 1. If not done already, compile the sources 
-  1. `$> mvn clean:clean package`
+   - `$> mvn clean:clean package`
 1. Execute the example code with maven by using the correct profile.
-  1. `$> mvn exec:exec -PResponseAsyncExample`
+   - `$> mvn exec:exec -PResponseAsyncExample`
 1. There is also a bash script that starts this maven target
-  1. `./script/run_single.sh`
+   - `./script/run_single.sh`
 
 
 ### <a name="ResponseAsyncMulti"></a> 2.2 Fetching a list of target URIs asynchronously with multi response
