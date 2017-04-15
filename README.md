@@ -3,12 +3,9 @@
 
 Code-examples showcasing the http2-implementation of JDK 9.
 
-**Information concerning support of HTTPS**: *As of the jigsaw jdk9, build 133, I could not figure out how to
-retrieve contents from https-addresses. As soon as I find out how to run these examples with https, the code will be changed accordingly.*
+**Information concerning the incubator status of the http client**: *As of the jigsaw jdk9, build 149. the http client has been moved to incubator status. It will not be part of the final API of jdk9.* 
 
-*As of now, this seems to be a bug in the JDK, see [the OpenJDK bugtracker](https://bugs.openjdk.java.net/browse/JDK-8157482).*
-
-There is currently an [Issue in IntelliJ 2016.3](https://youtrack.jetbrains.com/issue/IDEA-162653) that prevents projects based on the Jigsaw-JDK to run properly.
+There is currently an [Issue in IntelliJ 2016.3](https://youtrack.jetbrains.com/issue/IDEA-162653) that prevents projects based on the Jigsaw-JDK to run properly. Use IntelliJ 2017.1 instead.
 
 ## Contents
 1 [How to run this Code](#howtorun) <br/>
